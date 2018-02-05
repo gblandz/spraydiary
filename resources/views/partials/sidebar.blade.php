@@ -11,6 +11,12 @@
                     <span class="title">@lang('global.app_dashboard')</span>
                 </a>
             </li>
+            <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fas fa-clock"></i>
+                    <span class="title">@lang('global.app_timekeeping')</span>
+                </a>
+            </li>
             
             @can('users_manage')
             <li class="treeview">

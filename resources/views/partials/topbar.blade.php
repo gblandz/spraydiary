@@ -4,7 +4,7 @@
        style="font-size: 16px;">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini">
-           @lang('global.global_title')</span>
+           @lang('global.global_titlemini')</span>
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg">
            @lang('global.global_title')</span>

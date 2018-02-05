@@ -13,7 +13,7 @@
             </li>
             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
                 <a href="#">
-                    <i class="fas fa-clock"></i>
+                    <i class="fa fa-clock"></i>
                     <span class="title">@lang('global.app_timekeeping')</span>
                 </a>
             </li>

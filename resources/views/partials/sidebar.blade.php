@@ -13,18 +13,24 @@
             </li>
             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
                 <a href="#">
-                    <i class="fa fa-clock"></i>
+                    <i class="fa fa-clock-o"></i>
                     <span class="title">@lang('global.app_timekeeping')</span>
                 </a>
             </li>
             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
                 <a href="#">
-                    <i class="fa fa-clock"></i>
+                    <i class="fa fa-folder-open"></i>
                     <span class="title">@lang('global.app_reports')</span>
                 </a>
             </li>
-            
+
             @can('users_manage')
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-tasks"></i>
+                    <span class="title">@lang('global.app_tasks')</span>
+                </a>
+            </li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-users"></i>

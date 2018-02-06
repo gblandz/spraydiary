@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
 {
@@ -22,20 +21,11 @@ class ResetPasswordController extends Controller
     use ResetsPasswords;
 
     /**
-     * Display the password reset view for the given token.
+     * Where to redirect users after resetting their password.
      *
-     * If no token is present, display the link request form.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string|null  $token
-     * @return \Illuminate\Http\Response
+     * @var string
      */
-    public function showResetForm(Request $request, $token = null)
-    {
-        return view('adminlte::auth.passwords.reset')->with(
-            ['token' => $token, 'email' => $request->email]
-        );
-    }
+    protected $redirectTo = '/admin/home';
 
     /**
      * Create a new controller instance.

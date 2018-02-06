@@ -1,6 +1,13 @@
 <?php
 Route::get('/', function () { return redirect('/admin/home'); });
 
+// Task Routes..
+Route::get('/admin/tasks', 'TasksController@index');
+Route::get('/admin/tasks/add','TasksController@add');
+Route::post('/admin/tasks','TasksController@create');
+Route::get('/admin/tasks/{task}','TasksController@edit');
+Route::post('/admin/tasks/{task}','TasksController@update');
+
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('auth.login');
 $this->post('login', 'Auth\LoginController@login')->name('auth.login');

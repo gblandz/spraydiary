@@ -78,7 +78,7 @@
 
             <li>
                 <a href="#logout" onclick="$('#logout').submit();">
-                    <i class="fa fa-arrow-left"></i>
+                    <i class="fa fa-power-off"></i>
                     <span class="title">@lang('global.app_logout')</span>
                 </a>
             </li>

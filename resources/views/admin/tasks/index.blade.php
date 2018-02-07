@@ -2,16 +2,16 @@
 
 @section('content')
 @if (Auth::check())
-        <h3>Tasks List</h3>
+     <h3 class="page-title">@lang('global.tasks.title')</h3>
         <p>
-            <a href="{{ url('admin/tasks/add') }}" class="btn btn-success">Add new Task</a>
+            <a href="{{ route('admin.tasks.add') }}" class="btn btn-success">Add new Task</a>
         </p>    
         <div class="panel panel-default">
             <div class="panel-heading">
             @lang('global.app_list')
             </div>
             <div class="panel-body table-responsive">    
-                <table class="table table-bordered table-stripe">
+                <table class="table table-bordered table-striped table-hover">
                     <thead><tr>
                         <th>Name</th>
                         <th>User</th>

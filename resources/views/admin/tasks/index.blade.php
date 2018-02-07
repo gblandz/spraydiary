@@ -24,9 +24,9 @@
                         <tr>                 
                             <td>{{$task->description}}</td>
                             <td>
-                                @foreach ($task->user()->pluck('name') as $user)
-                                        <span class="label label-info label-many">{{ $user }}</span>
-                                    @endforeach                            
+                            @foreach ($task->user()->pluck('name') as $user)
+                                <span class="label label-info label-many">{{ $user }}</span>
+                            @endforeach                        
                             </td>
                             <td>                                       
                                 <form action="{{ url('admin/tasks') }}/{{$task->id}}">

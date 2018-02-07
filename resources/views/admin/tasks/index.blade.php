@@ -21,9 +21,13 @@
 
                         <tbody>
                         @foreach($user->tasks as $task)
-                        <tr>
+                        <tr>                 
                             <td>{{$task->description}}</td>
-                            <td>{{$task->user_id}}</td>
+                            <td>
+                                @foreach ($task->user()->pluck('name') as $user)
+                                        <span class="label label-info label-many">{{ $user }}</span>
+                                    @endforeach                            
+                            </td>
                             <td>                                       
                                 <form action="{{ url('admin/tasks') }}/{{$task->id}}">
                                     <button type="submit" name="edit" class="btn btn-xs btn-info">Edit</button>

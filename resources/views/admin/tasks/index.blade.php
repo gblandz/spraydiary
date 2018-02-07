@@ -11,7 +11,7 @@
             @lang('global.app_list')
             </div>
             <div class="panel-body table-responsive">    
-                <table class="table table-bordered table-striped table-hover">
+                <table class="table table-condensed table-bordered">
                     <thead><tr>
                         <th>Name</th>
                         <th>Assigned User</th>

@@ -14,8 +14,7 @@
                 <table class="table table-bordered table-striped table-hover">
                     <thead><tr>
                         <th>Name</th>
-                        <th>User</th>
-                        <th>Created Date</th>
+                        <th>Assigned User</th>
                         <th>Action</th>
                         </tr>
                     </thead>
@@ -25,7 +24,6 @@
                         <tr>
                             <td>{{$task->description}}</td>
                             <td>{{$task->user_id}}</td>
-                            <td>{{$task->created_at}}</td>
                             <td>                                       
                                 <form action="{{ url('admin/tasks') }}/{{$task->id}}">
                                     <button type="submit" name="edit" class="btn btn-xs btn-info">Edit</button>

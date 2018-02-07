@@ -1,22 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-                <h3>Add New Task</h3>
-               
-<form method="POST" action="/task">
+    <h3 class="page-title">@lang('global.tasks.title')</h3>
+    {!! Form::open(['method' => 'POST', 'route' => ['admin.tasks.create']]) !!}
 
-    <div class="form-group">
-        <textarea name="description" class="form-control"></textarea>  
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            @lang('global.app_create')
+        </div>
+        
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    {!! Form::label('description', 'Name*', ['class' => 'control-label']) !!}
+                    {!! Form::text('description', old('description'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('description'))
+                        <p class="help-block">
+                            {{ $errors->first('description') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+            
+        </div>
     </div>
 
+    {!! Form::submit(trans('global.app_save'), ['class' => 'btn btn-danger']) !!}
+    {!! Form::close() !!}
+@stop
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Add Task</button>
-    </div>
-{{ csrf_field() }}
-</form>
-
-
-</div>
-@endsection

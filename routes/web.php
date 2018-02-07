@@ -2,9 +2,9 @@
 Route::get('/', function () { return redirect('/admin/home'); });
 
 // Task Routes..
-Route::get('/admin/tasks', 'TasksController@index');
+Route::get('/admin/tasks', 'TasksController@index')->name('admin.tasks.index');
 Route::get('/admin/tasks/add','TasksController@add')->name('admin.tasks.add');
-Route::post('/admin/tasks','TasksController@create');
+Route::post('/admin/tasks','TasksController@create')->name('admin.tasks.create');
 Route::get('/admin/tasks/{task}','TasksController@edit');
 Route::post('/admin/tasks/{task}','TasksController@update');
 

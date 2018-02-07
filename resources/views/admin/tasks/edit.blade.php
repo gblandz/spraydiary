@@ -1,24 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
-	<div class="container">
-	<h1>Edit the Task</h1>
+<h3 class="page-title">@lang('global.tasks.title')</h3>
+{!! Form::model($task, ['action' => ['TasksController@edit', $task->id]]) !!}
 
-<form method="POST" action="/task/{{ $task->id }}">
+<div class="panel panel-default">
+        <div class="panel-heading">
+            @lang('global.app_edit')
+        </div>
 
-	<div class="form-group">
-		<textarea name="description" class="form-control">{{$task->description }}</textarea>	
-	</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    {!! Form::label('description', 'Name*', ['class' => 'control-label']) !!}
+                    {!! Form::text('description', old('description'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('description'))
+                        <p class="help-block">
+                            {{ $errors->first('description') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+            
+        </div>
+    </div>
 
-
-	<div class="form-group">
-		<button type="submit" name="update" class="btn btn-primary">Update task</button>
-	</div>
-{{ csrf_field() }}
-</form>
-
-
-
-</div>
-
+    {!! Form::submit(trans('global.app_update'), ['class' => 'btn btn-danger']) !!}
+    {!! Form::close() !!}
 @stop

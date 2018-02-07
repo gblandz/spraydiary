@@ -36,7 +36,7 @@ class TasksController extends Controller
                 return view('admin.tasks.edit', compact('task'));
         }           
         else {
-             return redirect()->route('admin.task.index');
+             return redirect()->route('admin.tasks.index');
          }            	
     }
 
@@ -44,13 +44,13 @@ class TasksController extends Controller
     {
     	if(isset($_POST['delete'])) {
     		$task->delete();
-    		return redirect()->route('admin.task.index');
+    		return redirect()->route('admin.tasks.index');
     	}
     	else
     	{
     		$task->description = $request->description;
 	    	$task->save();
-	    	return redirect()->route('admin.task.index');
+	    	return redirect()->route('admin.tasks.index');
     	}    	
     }
 }

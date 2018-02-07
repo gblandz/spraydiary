@@ -5,8 +5,8 @@ Route::get('/', function () { return redirect('/admin/home'); });
 Route::get('/admin/tasks', 'TasksController@index')->name('admin.tasks.index');
 Route::get('/admin/tasks/add','TasksController@add')->name('admin.tasks.add');
 Route::post('/admin/tasks','TasksController@create')->name('admin.tasks.create');
-Route::get('/admin/tasks/{task}','TasksController@edit');
-Route::post('/admin/tasks/{task}','TasksController@update');
+Route::get('/admin/tasks/{task}','TasksController@edit')->name('admin.tasks.edit');
+Route::post('/admin/tasks/{task}','TasksController@update')->name('admin.tasks.update');
 
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('auth.login');

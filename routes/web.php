@@ -1,13 +1,6 @@
 <?php
 Route::get('/', function () { return redirect('/admin/home'); });
 
-// Task Routes..
-Route::get('/admin/tasks', 'TasksController@index')->name('admin.tasks.index');
-Route::get('/admin/tasks/add','TasksController@add')->name('admin.tasks.add');
-Route::post('/admin/tasks','TasksController@create')->name('admin.tasks.create');
-Route::get('/admin/tasks/{task}','TasksController@edit')->name('admin.tasks.edit');
-Route::post('/admin/tasks/{task}','TasksController@update')->name('admin.tasks.update');
-
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('auth.login');
 $this->post('login', 'Auth\LoginController@login')->name('auth.login');
@@ -31,7 +24,5 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('roles_mass_destroy', ['uses' => 'Admin\RolesController@massDestroy', 'as' => 'roles.mass_destroy']);
     Route::resource('users', 'Admin\UsersController');
     Route::post('users_mass_destroy', ['uses' => 'Admin\UsersController@massDestroy', 'as' => 'users.mass_destroy']);
-
-    Route::resource('timekeeping', 'TimesController');
 
 });

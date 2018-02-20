@@ -25,7 +25,7 @@
                             <td>{{$task->description}}</td>
                             <td>
                             @foreach ($task->user()->pluck('name') as $user)
-                                <span class="label label-info label-many">{{ $user }}</span>
+                                {{ $user }}
                             @endforeach                        
                             </td>
                             <td>                                       

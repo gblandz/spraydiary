@@ -12,9 +12,9 @@
                 </a>
             </li>
             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
-                <a href="#">
+                <a href="{{ route('admin.timekeeping.index') }}">
                     <i class="fa fa-clock-o"></i>
-                    <span class="title">@lang('global.app_timekeeping')</span>
+                    <span class="title">@lang('global.times.title')</span>
                 </a>
             </li>
             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">

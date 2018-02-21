@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Time;
 
 class TimesController extends Controller
 {
@@ -13,9 +14,9 @@ class TimesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $times = DB::table('times')->get();
-        return view('admin.timekeeping.index',compact('times'));
+    {   
+        $times = Time::all();
+       return view('admin.timekeeping.index',compact('times'));
     }
 
     /**

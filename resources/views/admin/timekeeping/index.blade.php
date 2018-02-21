@@ -227,7 +227,7 @@
                         <th>Start Time</th>
                         <th>End Time</th>
                         <th>Duration</th>
-                        <th>Task ID</th>
+                        <th>Task</th>
                     </tr>
                 </thead>
                 
@@ -238,7 +238,7 @@
                                 <td>{{ $time->start_time }}</td>
                                 <td>{{ $time->end_time }}</td>
                                 <td>{{ $time->duration }}</td>
-                                <td>{{ $time->task_id }}</td>
+                                <td>{{ $time->task->description }}</td>
                             </tr>
                         @endforeach
                   

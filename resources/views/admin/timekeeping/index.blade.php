@@ -9,12 +9,8 @@
     <div class="well">
     <p><strong>Select Details for Recording</strong></p>
     
-    <p>Select Tasks: 
-    <select class="selectpicker">
-        <option>Spray 1</option>
-        <option>Spray 2</option>
-        <option>Spray 3</option>
-        </select> 
+    <p>Select Tasks:
+        {!! Form::select('task_id', $tasks) !!}
     </p>
     <p>Select Block: 
     <select class="selectpicker">

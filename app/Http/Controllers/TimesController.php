@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Time;
+use App\Task;
 
 class TimesController extends Controller
 {
@@ -16,7 +17,8 @@ class TimesController extends Controller
     public function index()
     {   
         $times = Time::all();
-       return view('admin.timekeeping.index',compact('times'));
+        $tasks = Task::pluck('description');
+       return view('admin.timekeeping.index',compact('times', 'tasks'));
     }
 
     /**

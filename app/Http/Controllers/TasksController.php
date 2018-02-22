@@ -11,7 +11,7 @@ class TasksController extends Controller
     public function index()
     {
     	$user = Auth::user();
-    	return view('admin.tasks.index',compact('user'));
+        return view('admin.tasks.index',compact('user'));
     }
 
     public function add()

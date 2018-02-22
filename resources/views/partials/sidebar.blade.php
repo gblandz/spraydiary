@@ -33,7 +33,7 @@
             </li>
             <li class="{{ $request->segment(1) == 'tasks' ? 'active' : '' }}">
                 <a href="{{ route('admin.chemicals.index') }}">
-                    <i class="fa fa-tasks"></i>
+                    <i class="fa fa-flask"></i>
                     <span class="title">@lang('global.app_chemicals')</span>
                 </a>
             </li>

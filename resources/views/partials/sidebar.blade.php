@@ -32,7 +32,7 @@
                 </a>
             </li>
             <li class="{{ $request->segment(1) == 'tasks' ? 'active' : '' }}">
-                <a href="{{ url('admin/tasks') }}">
+                <a href="{{ route('admin.chemicals.index') }}">
                     <i class="fa fa-tasks"></i>
                     <span class="title">@lang('global.app_chemicals')</span>
                 </a>

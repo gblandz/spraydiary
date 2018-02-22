@@ -31,6 +31,12 @@
                     <span class="title">@lang('global.app_tasks')</span>
                 </a>
             </li>
+            <li class="{{ $request->segment(1) == 'tasks' ? 'active' : '' }}">
+                <a href="{{ url('admin/tasks') }}">
+                    <i class="fa fa-tasks"></i>
+                    <span class="title">@lang('global.app_chemicals')</span>
+                </a>
+            </li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-users"></i>

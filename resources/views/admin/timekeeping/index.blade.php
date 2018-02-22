@@ -5,9 +5,10 @@
     
 
 <div class="row">
-<div class="col-md-6">
-    <div class="well">
-    <p><strong>Select Details for Recording</strong></p>
+<div class="col-md-8">
+    <div class="box box-primary">
+    <div class="box-header with-border">
+   <p><strong>Select Details for Recording:</strong></p>
     
     <p>Select Tasks:
         {!! Form::select('task_id', $tasks) !!}
@@ -27,15 +28,15 @@
         </select> 
     </p>
 </div>
+</div>
 
 </div>
 
 
-<div class="col-md-6">
-<div class="well">
+<div class="col-md-4">
 
 <div style="text-align: center">
-    <p>{{ date('F d, Y H:i:s') }} </p> 
+    <p><h4>{{ date('F d, Y H:i:s') }}</h4> </p> 
 
         <span style="font-size: 11px">HH:MM:SS</span><br />
 
@@ -44,8 +45,8 @@
             00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
 
         <br />
-<input type="button" value="Start" onclick="startTimer()">
-<input type="button" value="Stop" onclick="stopTimer()">
+        <button type="button" class="btn btn btn-success" onclick="startTimer()">Start</button>
+        <button type="button" class="btn btn btn-danger" onclick="stopTimer()">Stop</button>
         <br />
 
         <label id="totalTime">
@@ -207,7 +208,7 @@
     </script>
 
 
-</div>
+
 </div>
 </div>    
     <div class="panel panel-default">

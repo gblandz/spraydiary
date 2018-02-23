@@ -17,7 +17,7 @@ class TimesController extends Controller
     public function index()
     {   
         $times = Time::all();
-        $tasks = Task::pluck('description');
+        $tasks = Task::pluck('description', 'id');
        return view('admin.timekeeping.index',compact('times', 'tasks'));
     }
 

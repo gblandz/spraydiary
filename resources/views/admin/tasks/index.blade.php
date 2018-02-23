@@ -20,13 +20,11 @@
                     </thead>
 
                         <tbody>
-                        @foreach($user->tasks as $task)
+                        @foreach($tasks as $task)
                         <tr>                 
                             <td>{{$task->description}}</td>
                             <td>
-                            @foreach ($task->user()->pluck('name') as $user)
-                                {{ $user }}
-                            @endforeach                        
+                               {{$task->user_id}}               
                             </td>
                             <td>                                       
                                 <form action="{{ url('admin/tasks') }}/{{$task->id}}">

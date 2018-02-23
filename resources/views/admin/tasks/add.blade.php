@@ -14,6 +14,8 @@
                 <div class="col-xs-12 form-group">
                     {!! Form::label('description', 'Name*', ['class' => 'control-label']) !!}
                     {!! Form::text('description', old('description'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                    {!! Form::label('user_id', 'Assign User*', ['class' => 'control-label']) !!}
+                    {!! Form::select('id', $userSelect, null, ['class' => 'form-control']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('description'))
                         <p class="help-block">

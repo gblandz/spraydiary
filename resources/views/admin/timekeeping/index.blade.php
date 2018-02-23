@@ -10,23 +10,46 @@
     <div class="box-header with-border">
    <p><strong>Select Details for Recording:</strong></p>
     
-    <p>Select Tasks:
-        {!! Form::select('task_id', $tasks) !!}
-    </p>
-    <p>Select Block: 
-    <select class="selectpicker">
+    <label for="sel2">Select Task:</label>
+        {!! Form::select('task_id', $tasks, null, ['class' => 'form-control']) !!}
+    <label for="sel2">Select Block:</label>
+    <select class="form-control">
         <option>Block 1</option>
         <option>Block 2</option>
         <option>Block 3</option>
         </select> 
     </p>
-    <p>Select Chemical: 
-    <select class="selectpicker">
+    <label for="sel2">Select Shed (hold shift to select more than one):</label>
+      <select multiple class="form-control" id="sel2">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    <label for="sel2">Select Chemical:</label>
+         <select class="form-control">
         <option>Chemical 1</option>
         <option>Chemical 2</option>
         <option>Chemical 3</option>
         </select> 
-    </p>
+    </br>
+        <div class="col-xs-3">
+    <label for="ex2">Pest Disease</label>
+    <input class="form-control" id="disabledInput" type="text" disabled>
+  </div>
+  <div class="col-xs-3">
+    <label for="ex2">Active Constituents</label>
+    <input class="form-control" id="disabledInput" type="text" disabled>
+  </div>
+  <div class="col-xs-3">
+    <label for="ex2">Chemical Application Rate</label>
+    <input class="form-control" id="disabledInput" type="text" disabled>
+  </div>
+  <div class="col-xs-3">
+    <label for="ex2">With Hold Period</label>
+    <input class="form-control" id="disabledInput" type="text" disabled>
+  </div>
 </div>
 </div>
 
@@ -217,7 +240,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped">
+            <table class="dataTable display compact">
                 <thead>
                     <tr>
                         <th>Date</th>

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
 use App\Time;
 use App\Task;
+use App\User;
 
 class TimesController extends Controller
 {
@@ -17,7 +19,7 @@ class TimesController extends Controller
     public function index()
     {   
         $times = Time::all();
-        $tasks = Task::pluck('description', 'id');
+        $tasks = Auth::user()->tasks->pluck('description', 'id');
        return view('admin.timekeeping.index',compact('times', 'tasks'));
     }
 

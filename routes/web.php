@@ -24,12 +24,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('roles_mass_destroy', ['uses' => 'Admin\RolesController@massDestroy', 'as' => 'roles.mass_destroy']);
     Route::resource('users', 'Admin\UsersController');
     Route::post('users_mass_destroy', ['uses' => 'Admin\UsersController@massDestroy', 'as' => 'users.mass_destroy']);
-
-<<<<<<< HEAD
     Route::resource('timekeeping', 'TimesController');
     Route::resource('chemicals', 'ChemicalsController');
-
-
-=======
->>>>>>> a25bc90b637bba4b154608b773015237dcde5595
 });

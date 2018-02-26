@@ -13,7 +13,7 @@ class TasksController extends Controller
     public function index()
     {
     	$tasks = Task::all();
-        $users = User::pluck('name', 'id');
+        $users = User::all();
         return view('admin.tasks.index',compact('tasks', 'users'));
 
     }

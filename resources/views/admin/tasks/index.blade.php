@@ -23,9 +23,7 @@
                         @foreach($tasks as $task)
                         <tr>                 
                             <td>{{$task->description}}</td>
-                            <td>
-                               {{$task->user_id}}               
-                            </td>
+                            <td>{{$task->user->name}}</td>
                             <td>                                       
                                 <form action="{{ url('admin/tasks') }}/{{$task->id}}">
                                     <button type="submit" name="edit" class="btn btn-xs btn-info">Edit</button>

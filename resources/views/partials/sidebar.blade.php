@@ -7,7 +7,7 @@
 
             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
                 <a href="{{ url('/') }}">
-                    <i class="fa fa-wrench"></i>
+                    <i class="fa fa-home"></i>
                     <span class="title">@lang('global.app_dashboard')</span>
                 </a>
             </li>
@@ -72,6 +72,12 @@
                         </a>
                     </li>
                 </ul>
+            </li>
+            <li class="{{ $request->segment(1) == 'tasks' ? 'active' : '' }}">
+                <a href="{{ url('/') }}">
+                    <i class="fa fa-cog"></i>
+                    <span class="title">@lang('global.settings')</span>
+                </a>
             </li>
             @endcan
 

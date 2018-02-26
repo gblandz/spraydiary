@@ -12,9 +12,9 @@
                 </a>
             </li>
             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
-                <a href="{{ route('admin.timekeeping.index') }}">
+                <a href="#">
                     <i class="fa fa-clock-o"></i>
-                    <span class="title">@lang('global.times.title')</span>
+                    <span class="title">@lang('global.app_timekeeping')</span>
                 </a>
             </li>
             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
@@ -25,8 +25,8 @@
             </li>
 
             @can('users_manage')
-             <li class="{{ $request->segment(1) == 'tasks' ? 'active' : '' }}">
-                <a href="{{ url('admin/tasks') }}">
+            <li class="treeview">
+                <a href="#">
                     <i class="fa fa-tasks"></i>
                     <span class="title">@lang('global.app_tasks')</span>
                 </a>
@@ -84,7 +84,7 @@
 
             <li>
                 <a href="#logout" onclick="$('#logout').submit();">
-                    <i class="fa fa-power-off"></i>
+                    <i class="fa fa-arrow-left"></i>
                     <span class="title">@lang('global.app_logout')</span>
                 </a>
             </li>

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Auth;
 use App\Task;
 use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TasksController extends Controller
 {
@@ -32,16 +33,15 @@ class TasksController extends Controller
     	return redirect()->route('admin.tasks.index'); 
     }
 
-    public function edit(Task $task)
+    public function edit($id)
     {
+    	if (! Gate::allows('users_manage')) {
+            return abort(401);
+        }
+        $task = Task::find($id);
+        $userSelect = User::pluck('name', 'id');
 
-    	if (Auth::check() && Auth::user()->id == $task->user_id)
-        {            
-                return view('admin.tasks.edit', compact('task'));
-        }           
-        else {
-             return redirect()->route('admin.tasks.index');
-         }            	
+        return view('admin.tasks.edit', compact('task', 'userSelect'));
     }
 
     public function update(Request $request, Task $task)
@@ -53,6 +53,7 @@ class TasksController extends Controller
     	else
     	{
     		$task->description = $request->description;
+            $task->user_id = $request->user_id;
 	    	$task->save();
 	    	return redirect()->route('admin.tasks.index');
     	}    	

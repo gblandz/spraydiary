@@ -4,7 +4,7 @@
 @if (Auth::check())
      <h3 class="page-title">@lang('global.tasks.title')</h3>
         <p>
-            <a href="{{ route('admin.tasks.add') }}" class="btn btn-success">Add new Task</a>
+            <a href="{{ route('admin.tasks.create') }}" class="btn btn-success">Add new Task</a>
         </p>    
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -25,11 +25,14 @@
                             <td>{{$task->description}}</td>
                             <td>{{$task->user->name}}</td>
                             <td>                                       
-                                <form action="{{ url('admin/tasks') }}/{{$task->id}}">
-                                    <button type="submit" name="edit" class="btn btn-xs btn-info">Edit</button>
-                                    <button type="submit" name="delete" formmethod="POST" class="btn btn-xs btn-danger">Delete</button>
-                                    {{ csrf_field() }}
-                                </form>
+                                <a href="{{ route('admin.tasks.edit',[$task->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                        'route' => ['admin.tasks.destroy', $task->id])) !!}
+                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
                             </td>
                         </tr>                     
                         @endforeach</tbody>

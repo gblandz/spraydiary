@@ -10,32 +10,64 @@ use Illuminate\Support\Facades\Gate;
 
 class TasksController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-    	$tasks = Task::all();
+        $tasks = Task::all();
         $users = User::all();
         return view('admin.tasks.index',compact('tasks', 'users'));
-
     }
 
-    public function add()
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
         $userSelect = User::pluck('name', 'id');
-    	return view('admin.tasks.add', compact('userSelect'));
+        return view('admin.tasks.create', compact('userSelect'));
     }
 
-    public function create(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
-    	$task = new Task();
-    	$task->description = $request->description;
-    	$task->user_id = $request->id;
-    	$task->save();
-    	return redirect()->route('admin.tasks.index'); 
+        $task = new Task();
+        $task->description = $request->description;
+        $task->user_id = $request->id;
+        $task->save();
+        return redirect()->route('admin.tasks.index');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
-    	if (! Gate::allows('users_manage')) {
+        if (! Gate::allows('users_manage')) {
             return abort(401);
         }
         $task = Task::find($id);
@@ -44,18 +76,38 @@ class TasksController extends Controller
         return view('admin.tasks.edit', compact('task', 'userSelect'));
     }
 
-    public function update(Request $request, Task $task)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
-    	if(isset($_POST['delete'])) {
-    		$task->delete();
-    		return redirect()->route('admin.tasks.index');
-    	}
-    	else
-    	{
-    		$task->description = $request->description;
-            $task->user_id = $request->user_id;
-	    	$task->save();
-	    	return redirect()->route('admin.tasks.index');
-    	}    	
+        if (! Gate::allows('users_manage')) {
+            return abort(401);
+        }
+        $task = Task::findOrFail($id);
+        $task->update($request->all());
+
+        return redirect()->route('admin.tasks.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        if (! Gate::allows('users_manage')) {
+            return abort(401);
+        }
+        $task = Task::findOrFail($id);
+        $task->delete();
+
+        return redirect()->route('admin.tasks.index');
     }
 }

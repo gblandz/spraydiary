@@ -2,7 +2,7 @@
 
 @section('content')
 <h3 class="page-title">@lang('global.tasks.title')</h3>
-{!! Form::model($task, ['action' => ['TasksController@edit', $task->id]]) !!}
+{!! Form::model($task, ['method' => 'put', 'route' => ['admin.tasks.update', $task->id]]) !!}
 
 <div class="panel panel-default">
         <div class="panel-heading">

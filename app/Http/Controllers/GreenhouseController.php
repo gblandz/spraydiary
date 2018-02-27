@@ -127,6 +127,12 @@ class GreenhouseController extends Controller
      */
     public function destroy($id)
     {
-        //
+         if (! Gate::allows('users_manage')) {
+            return abort(401);
+        }
+        $block = Block::findOrFail($id);
+        $block->delete();
+
+        return redirect()->route('admin.greenhouse.index');
     }
 }

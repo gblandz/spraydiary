@@ -10,8 +10,6 @@
     <div class="box-header with-border">
     <p><strong>Select Details for Recording:</strong></p>
 
-    {!! Form::open(['method' => 'POST', 'route' => ['admin.tasks.store']]) !!}
-    
     {!! Form::label('task_id', 'Select Task:', ['class' => 'control-label']) !!}
     {!! Form::select('task_id', $tasks, null, ['class' => 'form-control']) !!}
     {!! Form::label('task_id', 'Select Block:', ['class' => 'control-label']) !!}

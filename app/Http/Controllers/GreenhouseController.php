@@ -68,10 +68,9 @@ class GreenhouseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function editBlock(Request $request,$id)
+    public function editBlock($id)
     {
-        $blocks = DB::select('select * from blocks where id = ?',[$id]);
-        return view('admin.greenhouse.editblock',['blocks'=>$blocks]);
+        //
     }
 
     /**

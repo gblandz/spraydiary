@@ -7,14 +7,13 @@
 	<div class="col-md-6">
     <div class="box box-primary">
     <div class="box-header with-border">
-		{!! Form::open(['method' => 'POST', 'route' => ['admin.greenhouse.store'], 'class' => 'form-inline']) !!}
+		{!! Form::open(['method' => 'POST', 'route' => ['admin.greenhouse.storeblock'], 'class' => 'form-inline']) !!}
 		<div class="form-group">
-		    {!! Form::label('name', 'Add Block:', ['class' => 'control-label']) !!}
-		    {!! Form::text('name', old('name'), ['class' => 'form-control', 'placeholder' => 'Enter block name here', 'required' => '']) !!}
+		    {!! Form::label('block_name', 'Add Block:', ['class' => 'control-label']) !!}
+		    {!! Form::text('block_name', old('block_name'), ['class' => 'form-control', 'placeholder' => 'Enter block name here', 'required' => '']) !!}
 		  	{!! Form::submit(trans('global.app_add'), ['class' => 'btn btn-success']) !!}
-    		{!! Form::close() !!}
-		 </div>
-		</form>
+    	{!! Form::close() !!}
+		</div>
 	</div>
 	</div>
 
@@ -34,7 +33,7 @@
 		    	@foreach ($blocks as $block)
 	                <tr>
 	                    <td> {{$block->id}} </td>
-	                    <td> {{$block->name}} </td>
+	                    <td> {{$block->block_name}} </td>
 	                    <td></td>
 	                </tr>
 	            @endforeach
@@ -47,12 +46,12 @@
  	<div class="col-md-6">
  	<div class="box box-primary">
     <div class="box-header with-border">
-		<form class="form-inline">
+    	{!! Form::open(['method' => 'POST', 'route' => ['admin.greenhouse.storeshed'], 'class' => 'form-inline']) !!}
 		<div class="form-group">
-		    <label for="exampleInputName2">Add Shed:</label>
-		    <input type="text" class="form-control" id="exampleInputName2" placeholder="Enter shed name here">
-		  	<button type="submit" class="btn btn-success">Add</button>
-		</form>	
+		    {!! Form::label('shed_name', 'Add Shed:', ['class' => 'control-label']) !!}
+		    {!! Form::text('shed_name', old('shed_name'), ['class' => 'form-control', 'placeholder' => 'Enter shed name here', 'required' => '']) !!}
+		  	{!! Form::submit(trans('global.app_add'), ['class' => 'btn btn-success']) !!}
+    	{!! Form::close() !!}	
 		</div>	
  	</div>
  	</div>
@@ -73,7 +72,7 @@
 		    	@foreach ($sheds as $shed)
 	                <tr>
 	                    <td>{{ $shed->id }}</td>
-	                    <td>{{ $shed->name }}</td>
+	                    <td>{{ $shed->shed_name }}</td>
 	                    <td></td>
 	                </tr>
 	            @endforeach

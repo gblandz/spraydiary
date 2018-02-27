@@ -37,9 +37,18 @@ class GreenhouseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeBlock(Request $request)
     {
-        //
+        $block = $request->input('block_name');
+        DB::insert('insert into blocks (block_name) values(?)',[$block]);
+        return redirect()->route('admin.greenhouse.index');
+    }
+
+    public function storeShed(Request $request)
+    {
+        $shed = $request->input('shed_name');
+        DB::insert('insert into sheds (shed_name) values(?)',[$shed]);
+        return redirect()->route('admin.greenhouse.index');
     }
 
     /**

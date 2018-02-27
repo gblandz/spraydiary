@@ -1,5 +1,7 @@
 <?php
 Route::get('/', function () { return redirect('/admin/home'); });
+Route::post('/admin/greenhouse/storeblock','GreenhouseController@storeBlock')->name('admin.greenhouse.storeblock');
+Route::post('/admin/greenhouse/storeshed','GreenhouseController@storeShed')->name('admin.greenhouse.storeshed');
 
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('auth.login');
@@ -29,4 +31,5 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::resource('chemicals', 'ChemicalsController');
     Route::resource('tasks', 'TasksController');
     Route::resource('greenhouse', 'GreenhouseController');
+
 });

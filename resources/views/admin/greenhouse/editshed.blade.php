@@ -2,11 +2,11 @@
 
 @section('content')
 <h3 class="page-title">@lang('global.greenhouse')</h3>
-{!! Form::model($block, ['route' => ['admin.greenhouse.update', $block->id]]) !!}
+{!! Form::model($shed, ['method' => 'put', 'route' => ['admin.greenhouse.updateBlock', $shed->id]]) !!}
 
 <div class="panel panel-default">
         <div class="panel-heading">
-            <strong>Edit Block</strong>
+            <strong>Edit Shed</strong>
         </div>
 
         <div class="panel-body">
@@ -14,12 +14,12 @@
                 <div class="col-xs-12 form-group">
                     {!! Form::label('id', 'ID*', ['class' => 'control-label']) !!}
                     {!! Form::text('id', old('id'), ['class' => 'form-control', 'disabled' => 'disabled']) !!}
-                    {!! Form::label('block_name', 'Name*', ['class' => 'control-label']) !!}
-                    {!! Form::text('block_name', old('block_name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                    {!! Form::label('shed_name', 'Name*', ['class' => 'control-label']) !!}
+                    {!! Form::text('shed_name', old('shed_name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
                     <p class="help-block"></p>
-                    @if($errors->has('block_name'))
+                    @if($errors->has('shed_name'))
                         <p class="help-block">
-                            {{ $errors->first('block_name') }}
+                            {{ $errors->first('shed_name') }}
                         </p>
                     @endif
                 </div>

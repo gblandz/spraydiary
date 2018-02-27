@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Block;
+use App\Shed;
+use DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 
 
 class GreenhouseController extends Controller
@@ -16,8 +19,8 @@ class GreenhouseController extends Controller
      */
     public function index()
     {
-        $blocks = DB::table('blocks')->get();
-        $sheds = DB::table('sheds')->get();
+        $blocks = Block::all();
+        $sheds = Shed::all();
         return view('admin.greenhouse.index',compact('blocks', 'sheds'));
     }
 
@@ -70,7 +73,20 @@ class GreenhouseController extends Controller
      */
     public function editBlock($id)
     {
-        //
+        if (! Gate::allows('users_manage')) {
+            return abort(401);
+        }
+        $block = Block::find($id);
+        return view('admin.greenhouse.editblock', compact('block'));
+    }
+
+    public function editShed($id)
+    {
+        if (! Gate::allows('users_manage')) {
+            return abort(401);
+        }
+        $shed = Shed::find($id);
+        return view('admin.greenhouse.editshed', compact('shed'));
     }
 
     /**
@@ -80,9 +96,26 @@ class GreenhouseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateBlock(Request $request, $id)
+    public function update(Request $request, $id)
     {
-        //
+        if (! Gate::allows('users_manage')) {
+            return abort(401);
+        }
+        $block = Block::findOrFail($id);
+        $block->update($request->all());
+
+        return redirect()->route('admin.greenhouse.index');
+    }
+
+    public function updateShed(Request $request, $id)
+    {
+        if (! Gate::allows('users_manage')) {
+            return abort(401);
+        }
+        $shed = Shed::findOrFail($id);
+        $shed->update($request->all());
+
+        return redirect()->route('admin.greenhouse.index');
     }
 
     /**

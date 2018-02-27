@@ -2,7 +2,7 @@
 
 @section('content')
 <h3 class="page-title">@lang('global.greenhouse')</h3>
-{!! Form::model($shed, ['method' => 'put', 'route' => ['admin.greenhouse.update', $shed->id]]) !!}
+{!! Form::model($shed, ['route' => ['admin.greenhouse.updateshed', $shed->id]]) !!}
 
 <div class="panel panel-default">
         <div class="panel-heading">

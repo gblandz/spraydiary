@@ -2,10 +2,10 @@
 Route::get('/', function () { return redirect('/admin/home'); });
 Route::post('/admin/greenhouse/storeblock','GreenhouseController@storeBlock')->name('admin.greenhouse.storeblock');
 Route::post('/admin/greenhouse/storeshed','GreenhouseController@storeShed')->name('admin.greenhouse.storeshed');
-Route::get('/admin/greenhouse/block/{block}','GreenhouseController@editBlock')->name('admin.greenhouse.block');
-Route::get('/admin/greenhouse/shed/{shed}','GreenhouseController@editShed')->name('admin.greenhouse.shed');
-Route::post('/admin/greenhouse/block/{block}','GreenhouseController@updateBlock')->name('admin.greenhouse.update');
-
+Route::get('/admin/greenhouse/block/{block}/edit','GreenhouseController@editBlock')->name('admin.greenhouse.block');
+Route::get('/admin/greenhouse/shed/{shed}/edit','GreenhouseController@editShed')->name('admin.greenhouse.shed');
+Route::post('/admin/greenhouse/block/{block}','GreenhouseController@updateBlock')->name('admin.greenhouse.updateblock');
+Route::post('/admin/greenhouse/shed/{shed}','GreenhouseController@updateShed')->name('admin.greenhouse.updateshed');
 
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('auth.login');

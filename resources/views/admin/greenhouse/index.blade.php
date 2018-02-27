@@ -17,7 +17,7 @@
 	</div>
 	</div>
 
-		<div class="panel panel-primary">
+		<div class="panel panel-default">
         <div class="panel-heading">Blocks:</div>
 		<div class="panel-body table-responsive">
 		<table class="dataTable display compact">
@@ -35,12 +35,12 @@
 	                    <td> {{$block->id}} </td>
 	                    <td> {{$block->block_name}} </td>
 	                    <td>
-	                    	<a href="{{ route('admin.tasks.edit',[$task->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+	                    	<a href="{{ route('admin.greenhouse.block',[$block->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
                                     {!! Form::open(array(
                                         'style' => 'display: inline-block;',
                                         'method' => 'DELETE',
                                         'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.tasks.destroy', $task->id])) !!}
+                                        'route' => ['admin.greenhouse.destroy', $block->id])) !!}
                                     {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
                                     {!! Form::close() !!}
 	                    </td>
@@ -65,7 +65,7 @@
  	</div>
  	</div>
 
- 		<div class="panel panel-primary">
+ 		<div class="panel panel-default">
         <div class="panel-heading">Sheds:</div>
 		<div class="panel-body table-responsive">
 		<table class="dataTable display compact">
@@ -83,12 +83,13 @@
 	                    <td>{{ $shed->id }}</td>
 	                    <td>{{ $shed->shed_name }}</td>
 	                    <td>
-	                    	<a href="{{ route('admin.tasks.edit',[$task->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+	                    	<a href="{{ route('admin.greenhouse.edit',[$shed->id]) }}" class="btn btn-xs btn-info">
+	                    	@lang('global.app_edit')</a>
                                     {!! Form::open(array(
                                         'style' => 'display: inline-block;',
                                         'method' => 'DELETE',
                                         'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.tasks.destroy', $task->id])) !!}
+                                        'route' => ['admin.greenhouse.destroy', $block->id])) !!}
                                     {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
                                     {!! Form::close() !!}
 	                    </td>

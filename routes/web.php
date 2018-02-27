@@ -2,6 +2,7 @@
 Route::get('/', function () { return redirect('/admin/home'); });
 Route::post('/admin/greenhouse/storeblock','GreenhouseController@storeBlock')->name('admin.greenhouse.storeblock');
 Route::post('/admin/greenhouse/storeshed','GreenhouseController@storeShed')->name('admin.greenhouse.storeshed');
+Route::get('/admin/greenhouse/block/{block}','GreenhouseController@editBlock')->name('admin.greenhouse.block');
 
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('auth.login');

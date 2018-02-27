@@ -15,7 +15,7 @@ class CreateShedsTable extends Migration
     {
         Schema::create('sheds', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('shed_name');
         });
     }
 

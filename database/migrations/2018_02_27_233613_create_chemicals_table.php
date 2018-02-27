@@ -15,11 +15,11 @@ class CreateChemicalsTable extends Migration
     {
         Schema::create('chemicals', function (Blueprint $table) {
             $table->increments('id');
-			$table->int('chem_type');
+			$table->integer('chem_type');
 			$table->string('trade_name');
 			$table->string('components');
 			$table->string('rates');
-			$table->int('withhold_period');
+			$table->integer('withhold_period');
 			$table->string('pest_disease');
         });
     }

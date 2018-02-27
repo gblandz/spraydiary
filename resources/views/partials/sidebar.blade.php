@@ -37,6 +37,12 @@
                     <span class="title">@lang('global.app_chemicals')</span>
                 </a>
             </li>
+             <li class="{{ $request->segment(1) == 'tasks' ? 'active' : '' }}">
+                <a href="{{ route('admin.greenhouse.index') }}">
+                    <i class="fa fa-th-large"></i>
+                    <span class="title">@lang('global.greenhouse')</span>
+                </a>
+            </li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-users"></i>
@@ -72,13 +78,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
-            <li class="{{ $request->segment(1) == 'tasks' ? 'active' : '' }}">
-                <a href="{{ url('/') }}">
-                    <i class="fa fa-cog"></i>
-                    <span class="title">@lang('global.settings')</span>
-                </a>
-            </li>
+            </li>           
             @endcan
 
             <li class="{{ $request->segment(1) == 'change_password' ? 'active' : '' }}">

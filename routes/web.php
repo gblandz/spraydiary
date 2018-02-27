@@ -28,4 +28,5 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::resource('timekeeping', 'TimesController');
     Route::resource('chemicals', 'ChemicalsController');
     Route::resource('tasks', 'TasksController');
+    Route::resource('greenhouse', 'GreenhouseController');
 });

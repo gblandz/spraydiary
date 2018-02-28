@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 Use App\Chemical;
-
 Use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class ChemicalsController extends Controller
 {
@@ -17,10 +16,8 @@ class ChemicalsController extends Controller
      */
     public function index()
     {
-		$chemical = new Chemical();
-        $chemicals = $chemical->getAll();
-        //return $chemicals;
-		return view('admin.chemicals.index', compact('chemicals'));
+		$chemicals = Chemical::all();
+        return view('admin.chemicals.index', compact('chemicals'));
     }
 
     /**
@@ -30,7 +27,7 @@ class ChemicalsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.chemicals.create');
     }
 
     /**
@@ -41,7 +38,15 @@ class ChemicalsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $chemical = new Chemical();
+        $chemical->chem_type = $request->chem_type;
+        $chemical->trade_name = $request->trade_name;
+        $chemical->components = $request->components;
+        $chemical->rates = $request->rates;
+        $chemical->withhold_period = $request->withhold_period;
+        $chemical->pest_disease = $request->pest_disease;
+        $chemical->save();
+        return redirect()->route('admin.chemicals.index');
     }
 
     /**
@@ -63,7 +68,12 @@ class ChemicalsController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (! Gate::allows('users_manage')) {
+            return abort(401);
+        }
+        $chemical = Chemical::find($id);
+
+        return view('admin.chemicals.edit', compact('chemical'));
     }
 
     /**
@@ -75,7 +85,13 @@ class ChemicalsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (! Gate::allows('users_manage')) {
+            return abort(401);
+        }
+        $chemical = Chemical::findOrFail($id);
+        $chemical->update($request->all());
+
+        return redirect()->route('admin.chemicals.index');
     }
 
     /**
@@ -86,6 +102,12 @@ class ChemicalsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (! Gate::allows('users_manage')) {
+            return abort(401);
+        }
+        $chemical = Chemical::findOrFail($id);
+        $chemical->delete();
+
+        return redirect()->route('admin.chemicals.index');
     }
 }

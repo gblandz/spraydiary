@@ -125,13 +125,24 @@ class GreenhouseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroyBlock($id)
     {
          if (! Gate::allows('users_manage')) {
             return abort(401);
         }
         $block = Block::findOrFail($id);
         $block->delete();
+
+        return redirect()->route('admin.greenhouse.index');
+    }
+
+    public function destroyShed($id)
+    {
+         if (! Gate::allows('users_manage')) {
+            return abort(401);
+        }
+        $shed = Shed::findOrFail($id);
+        $shed->delete();
 
         return redirect()->route('admin.greenhouse.index');
     }

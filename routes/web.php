@@ -6,6 +6,8 @@ Route::get('/admin/greenhouse/block/{block}/edit','GreenhouseController@editBloc
 Route::get('/admin/greenhouse/shed/{shed}/edit','GreenhouseController@editShed')->name('admin.greenhouse.shed');
 Route::post('/admin/greenhouse/block/{block}','GreenhouseController@updateBlock')->name('admin.greenhouse.updateblock');
 Route::post('/admin/greenhouse/shed/{shed}','GreenhouseController@updateShed')->name('admin.greenhouse.updateshed');
+Route::delete('/admin/greehouse/block/{block}', 'GreenhouseController@destroyBlock')->name('admin.greenhouse.deleteblock');
+Route::delete('/admin/greenhouse/shed/{shed}', 'GreenhouseController@destroyShed')->name('admin.greenhouse.deleteshed');
 
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('auth.login');

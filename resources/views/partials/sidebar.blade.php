@@ -18,7 +18,7 @@
                 </a>
             </li>
             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
-                <a href="#">
+                <a href="{{ url('admin/reports') }}">
                     <i class="fa fa-folder-open"></i>
                     <span class="title">@lang('global.app_reports')</span>
                 </a>

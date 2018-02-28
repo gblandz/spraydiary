@@ -10,6 +10,7 @@ use App\Task;
 use App\User;
 use App\Block;
 use App\Shed;
+use App\Chemical;
 
 class TimesController extends Controller
 {
@@ -24,7 +25,9 @@ class TimesController extends Controller
         $tasks = Auth::user()->tasks->pluck('description', 'id');
         $blocks = Block::pluck('block_name', 'id');
         $sheds = Shed::pluck('shed_name', 'id');
-       return view('admin.timekeeping.index',compact('times', 'tasks', 'blocks', 'sheds'));
+        $chemicals = Chemical::pluck('trade_name', 'id');
+        $sprayer = Auth::user()->pluck('name');
+       return view('admin.timekeeping.index',compact('times', 'tasks', 'blocks', 'sheds', 'chemicals', 'sprayer'));
     }
 
     /**

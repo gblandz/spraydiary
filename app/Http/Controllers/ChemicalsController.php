@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+Use App\Chemical;
+
+Use Illuminate\Support\Facades\DB;
+
 class ChemicalsController extends Controller
 {
     /**
@@ -13,7 +17,10 @@ class ChemicalsController extends Controller
      */
     public function index()
     {
-        return view('admin.chemicals.index');
+		$chemical = new Chemical();
+        $chemicals = $chemical->getAll();
+        //return $chemicals;
+		return view('admin.chemicals.index', compact('chemicals'));
     }
 
     /**

@@ -8,6 +8,8 @@ use Auth;
 use App\Time;
 use App\Task;
 use App\User;
+use App\Block;
+use App\Shed;
 
 class TimesController extends Controller
 {
@@ -20,7 +22,9 @@ class TimesController extends Controller
     {   
         $times = Time::all();
         $tasks = Auth::user()->tasks->pluck('description', 'id');
-       return view('admin.timekeeping.index',compact('times', 'tasks'));
+        $blocks = Block::pluck('block_name', 'id');
+        $sheds = Shed::pluck('shed_name', 'id');
+       return view('admin.timekeeping.index',compact('times', 'tasks', 'blocks', 'sheds'));
     }
 
     /**

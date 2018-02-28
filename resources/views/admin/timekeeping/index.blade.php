@@ -12,21 +12,10 @@
 
     {!! Form::label('task_id', 'Select Task:', ['class' => 'control-label']) !!}
     {!! Form::select('task_id', $tasks, null, ['class' => 'form-control']) !!}
-    {!! Form::label('task_id', 'Select Block:', ['class' => 'control-label']) !!}
-    <select class="form-control">
-        <option>Block 1</option>
-        <option>Block 2</option>
-        <option>Block 3</option>
-        </select> 
-    </p>
-    {!! Form::label('task_id', 'Select Shed (hold shift to select more than one):', ['class' => 'control-label']) !!}
-      <select multiple class="form-control" id="sel2">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-      </select>
+    {!! Form::label('block_id', 'Select Block:', ['class' => 'control-label']) !!}
+    {!! Form::select('block_id', $blocks, null, ['class' => 'form-control']) !!}
+    {!! Form::label('shed_id', 'Select Shed (hold shift to select more than one):', array('multiple'=>'multiple','name'=>'sheds[]')) !!}
+    {!! Form::select('shed_id', $sheds, null, ['class' => 'form-control']) !!}
     <label for="sel2">Select Chemical:</label>
          <select class="form-control">
         <option>Chemical 1</option>

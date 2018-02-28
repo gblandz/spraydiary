@@ -17,14 +17,13 @@
                 <thead>
                     <tr>
                         <th style="text-align:center;"><input type="checkbox" id="select-all" /></th>
-                         <th>@lang('global.chemicals.fields.id')</th>
+                        <th>@lang('global.chemicals.fields.id')</th>
                         <th>@lang('global.chemicals.fields.trade_name')</th>
-                         <th>@lang('global.chemicals.fields.components')</th>
-                         <th>@lang('global.chemicals.fields.rates')</th>
-                          <th>@lang('global.chemicals.fields.pest_disease')</th>
-                          <th>@lang('global.chemicals.fields.withhold_period')</th>
+                        <th>@lang('global.chemicals.fields.components')</th>
+                        <th>@lang('global.chemicals.fields.rates')</th>
+                        <th>@lang('global.chemicals.fields.pest_disease')</th>
+                        <th>@lang('global.chemicals.fields.withhold_period')</th>
                         <th>&nbsp;</th>
-
                     </tr>
                 </thead>
                 
@@ -33,12 +32,12 @@
                         @foreach ($chemicals as $chemical)
                             <tr data-entry-id="{{ $chemical->id }}">
                                 <td></td>
-                                 <td>{{ $chemical->id }}</td>
+                                <td>{{ $chemical->id }}</td>
                                 <td>{{ $chemical->trade_name }}</td>
                                 <td>{{ $chemical->components }}</td>
                                 <td>{{ $chemical->rates }}</td>
                                 <td>{{ $chemical->pest_disease }}</td>
-                                 <td>{{ $chemical->withhold_period }}</td>
+                                <td>{{ $chemical->withhold_period }}</td>
                                 <td>
                                     <a href="{{ route('admin.chemicals.edit',[$chemical->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
                                     {!! Form::open(array(

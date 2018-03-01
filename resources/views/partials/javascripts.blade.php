@@ -17,10 +17,29 @@
 <script src="{{ url('adminlte/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ url('adminlte/plugins/fastclick/fastclick.js') }}"></script>
 <script src="{{ url('adminlte/js/app.min.js') }}"></script>
+
 <script>
     window._token = '{{ csrf_token() }}';
 </script>
 
-
+<script type="text/javascript">
+	//~ $(document).ready(function(){
+		//~ $("#timeSave").submit(function(){
+			//~ var stopTimeContainer = $("#stopTimeContainer").val();
+			//~ var myId = 1;
+			//~ $.ajax({
+				//~ type: "POST",
+				//~ url: "insert",
+				//~ data: {time:stopTimeContainer, taskId:myId},
+				//~ success: function( msg ) {
+					//~ console.log( "Data Saved: " + msg );
+				//~ },
+				//~ error: function ( msg ) {
+					//~ console.log("Error: "+ msg);
+				//~ }
+			//~ });
+		//~ });
+	//~ });
+</script>
 
 @yield('javascript')

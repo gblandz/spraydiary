@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTimesTable extends Migration
+class CreateTimessTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,12 +15,9 @@ class CreateTimesTable extends Migration
     {
         Schema::create('times', function (Blueprint $table) {
             $table->increments('id');
-            $table->time('start_time');
-            $table->time('end_time');
-            $table->time('duration');
-            $table->integer('task_id')->unsigned();
-            $table->foreign('task_id')->references('id')->on('tasks');
-            $table->timestamps();
+            $table->integer('task_id');
+            $table->dateTime('start_time')->nullable();
+            $table->dateTime('end_time')->nullable();
         });
     }
 

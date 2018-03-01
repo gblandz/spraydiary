@@ -20,7 +20,10 @@ class TimesController extends Controller
     {   
         $times = Time::all();
         $tasks = Auth::user()->tasks->pluck('description', 'id');
-       return view('admin.timekeeping.index',compact('times', 'tasks'));
+        date_default_timezone_set('Australia/Brisbane');
+        $date = date('Y-m-d H:i:s');
+       // $time = date('H:i:s');
+       return view('admin.timekeeping.index',compact('times', 'tasks','date'));
     }
 
     /**
@@ -41,7 +44,16 @@ class TimesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+		//
+    }
+    
+     public function insert(Request $request)
+    {
+		$time = new Time();
+        $time->end_time = $request->stopTimeContainer;
+        $time->task_id = $request->myId;
+        $time->save();
+        return redirect()->route('admin.timekeeping.index');
     }
 
     /**

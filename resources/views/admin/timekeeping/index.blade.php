@@ -59,6 +59,7 @@
 <div class="col-md-4">
 
 <div style="text-align: center">
+	
     <p><h4>{{ date('F d, Y H:i:s') }}</h4> </p> 
 
         <span style="font-size: 11px">HH:MM:SS</span><br />
@@ -68,13 +69,18 @@
             00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
 
         <br />
+<!--
         <button type="button" class="btn btn btn-success" onclick="startTimer()">Start</button>
-        <button type="button" class="btn btn btn-danger" onclick="stopTimer()">Stop</button>
+        <button type="button" class="btn btn btn-danger" onclick="stopTimer()" id="stop_btn">Stop</button>
+-->
         <br />
-
-        <label id="totalTime">
-
-        </label>
+        <form id="timeSave" action="/insert" method="post">
+			{{csrf_field()}}
+			<input type="text" name="stopTimeContainer" id="stopTimeContainer" value={{$date}}> <br/>
+			<input type="text" name="myId" id="myId" value=1> <br/>
+			<label id="totalTime"></label>
+			<input type="submit" value="Stop" class="btn btn btn-danger" id="timeSbtBtn" />
+        </form>
 
     </div>
 

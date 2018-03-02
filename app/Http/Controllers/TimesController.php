@@ -109,4 +109,22 @@ class TimesController extends Controller
         }
         return Response::json($results);
     }
+
+    public function searchResponse(Request $request){
+        $query = $request->get('term','');
+        $chemicals=\DB::table('chemicals');
+        if($request->type=='trade_name'){
+            $chemicals->where('trade_name','LIKE','%'.$query.'%');
+        }
+        $chemicals=$chemicals->get();        
+        $data=array();
+        foreach ($chemicals as $chemical) {
+                $data[]=array('trade_name'=>$chemical->trade_name, 'components'=>$chemical->components,'rates'=>$chemical->rates, 'withhold_period'=>$chemical->withhold_period, 'pest_disease'=>$chemical->pest_disease,);
+        }
+        if(count($data))
+             return $data;
+        else
+            return ['trade_name'=>'','components'=>'','rates'=>'','withhold_period'=>'','pest_disease'=>''];
+    }
+
 }

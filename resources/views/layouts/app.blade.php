@@ -3,6 +3,7 @@
 
 <head>
     @include('partials.head')
+    @include('partials.javascripts')
 </head>
 
 
@@ -53,6 +54,6 @@
 <button type="submit">Logout</button>
 {!! Form::close() !!}
 
-@include('partials.javascripts')
+
 </body>
 </html>

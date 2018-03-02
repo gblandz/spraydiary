@@ -11,6 +11,11 @@ class Time extends Model
     {
     	return $this->belongsTo(Task::class);
 	}
+
+	public function block()
+	{
+		return $this->belongsTo(Block::class);
+	}
 }
 
 

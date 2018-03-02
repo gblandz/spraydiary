@@ -17,13 +17,13 @@
                     {!! Form::text('chem_type', old('chem_type'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
                     {!! Form::label('trade_name', 'Trade Name*', ['class' => 'control-label']) !!}
                     {!! Form::text('trade_name', old('name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
-                     {!! Form::label('components', 'Components*', ['class' => 'control-label']) !!}
+                    {!! Form::label('components', 'Components*', ['class' => 'control-label']) !!}
                     {!! Form::text('components', old('components'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
                     {!! Form::label('withhold_period', 'Withhold period*', ['class' => 'control-label']) !!}
                     {!! Form::text('withhold_period', old('withhold_period'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
                     {!! Form::label('rates', 'Rates*', ['class' => 'control-label']) !!}
                     {!! Form::text('rates', old('rates'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
-                      {!! Form::label('pest_disease', 'Pest / Disease*', ['class' => 'control-label']) !!}
+                    {!! Form::label('pest_disease', 'Pest / Disease*', ['class' => 'control-label']) !!}
                     {!! Form::text('pest_disease', old('pest_disease'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('name'))

@@ -8,6 +8,9 @@ use Auth;
 use App\Time;
 use App\Task;
 use App\User;
+use App\Block;
+use App\Shed;
+use App\Chemical;
 
 class TimesController extends Controller
 {
@@ -20,10 +23,13 @@ class TimesController extends Controller
     {   
         $times = Time::all();
         $tasks = Auth::user()->tasks->pluck('description', 'id');
-        date_default_timezone_set('Australia/Brisbane');
+		date_default_timezone_set('Australia/Brisbane');
         $date = date('Y-m-d H:i:s');
-       // $time = date('H:i:s');
-       return view('admin.timekeeping.index',compact('times', 'tasks','date'));
+        $blocks = Block::pluck('block_name', 'id');
+        $sheds = Shed::pluck('shed_name', 'id');
+        $chemicals = Chemical::pluck('trade_name', 'id');
+        $sprayer = Auth::user()->pluck('name');
+       return view('admin.timekeeping.index',compact('times', 'tasks', 'blocks', 'sheds', 'chemicals', 'sprayer','date'));
     }
 
     /**

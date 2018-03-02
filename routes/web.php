@@ -1,7 +1,8 @@
 <?php
 Route::get('/', function () { return redirect('/admin/home'); });
-Route::get('/admin/reports', function() { return view('admin.reports.index'); });
 
+//Temp reports route..
+Route::get('/admin/reports', function() { return view('admin.reports.index'); });
 
 //Greenhouse Routes..
 Route::post('/admin/greenhouse/storeblock','GreenhouseController@storeBlock')->name('admin.greenhouse.storeblock');

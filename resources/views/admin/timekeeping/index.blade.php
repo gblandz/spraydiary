@@ -17,24 +17,24 @@
             {!! Form::label('shed_id', 'Select Shed (hold shift to select more than one):', array('multiple'=>'multiple','name'=>'sheds[]')) !!}
             {!! Form::select('shed_id', $sheds, null, ['class' => 'form-control']) !!}
             {!! Form::label('chemical_id', 'Chemical Trade Name:', ['class' => 'control-label']) !!}
-            {!! Form::text('chemical_id', null, array('placeholder' => 'Search Chemicals','class' => 'form-control','id'=>'chemical_id')) !!}
+            <td><input class="form-control autocomplete_txt" type='text' data-type="trade_name" id='trade_name_1' name='trade_name[]'/></td>
  
             </br>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('pest_disease', 'Pest Disease', ['class' => 'control-label']) !!}        
-            {!! Form::text('pest_disease', 'null', ['class'=>'form-control','readonly']) !!}
+            {!! Form::text('pest_disease', '', ['class'=>'form-control','readonly', 'id' => 'pest_disease_1']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('components', 'Active Constituents', ['class' => 'control-label']) !!}        
-            {!! Form::text('components', 'null', ['class'=>'form-control','readonly']) !!}
+            {!! Form::text('components', '', ['class'=>'form-control','readonly', 'id' => 'components_1']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('rates', 'Application Rate', ['class' => 'control-label']) !!}        
-            {!! Form::text('rates', 'null', ['class'=>'form-control','readonly']) !!}
+            {!! Form::text('rates', '', ['class'=>'form-control','readonly', 'id' => 'rates_1']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('withhold_period', 'With Hold Period', ['class' => 'control-label']) !!}        
-            {!! Form::text('withhold_period', 'null', ['class'=>'form-control','readonly']) !!}
+            {!! Form::text('withhold_period', '', ['class'=>'form-control','readonly', 'id' => 'withhold_period_1']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('tank_capacity', 'Tank Capacity', ['class' => 'control-label']) !!}        
@@ -42,7 +42,7 @@
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('total_liquid', 'Total Liquid', ['class' => 'control-label']) !!}        
-            {!! Form::selectRange('number', 1,5, null, ['class'=>'form-control']) !!}
+            {!! Form::text('total_liquid', null, ['class'=>'form-control']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('is_fruiting', 'Fruiting?', ['class' => 'control-label']) !!}        
@@ -52,18 +52,53 @@
             {!! Form::label('sprayed_by', 'Sprayed By:', ['class' => 'control-label']) !!}        
             {!! Form::text('sprayed_by', $user->name, ['class'=>'form-control', 'readonly']) !!}
             {!! Form::close() !!}
-            </div>         
+            </div>        
 
-            <script type="text/javascript"> 
-                $('#chemical_id').autocomplete({
-                  source : '{!!URL::route('autocomplete')!!}',
-                  minlenght:1,
-                  autoFocus:true,
-                 select: function(event, ui) {
-                    $('#chemical_id').val(ui.item.value);
-                    }
-                });
-            </script>        
+            <script type="text/javascript">                
+            $(document).on('focus','.autocomplete_txt',function(){
+              type = $(this).data('type');
+              
+              if(type =='trade_name' )autoType='trade_name'; 
+              
+               $(this).autocomplete({
+                   minLength: 0,
+                   source: function( request, response ) {
+                        $.ajax({
+                            url: "{{ route('searchajax') }}",
+                            dataType: "json",
+                            data: {
+                                term : request.term,
+                                type : type,
+                            },
+                            success: function(data) {
+                                var array = $.map(data, function (item) {
+                                   return {
+                                       label: item[autoType],
+                                       value: item[autoType],
+                                       data : item
+                                   }
+                               });
+                                response(array)
+                            }
+                        });
+                   },
+                   select: function( event, ui ) {
+                       var data = ui.item.data;           
+                       id_arr = $(this).attr('id');
+                       id = id_arr.split("_");
+                       elementId = id[id.length-1];
+                       $('#trade_name_'+elementId).val(data.trade_name);
+                       $('#components_'+elementId).val(data.components);
+                       $('#rates_'+elementId).val(data.rates);
+                       $('#withhold_period_'+elementId).val(data.withhold_period);
+                       $('#pest_disease_'+elementId).val(data.pest_disease);
+                   }
+               });
+               
+               
+            });
+            </script>
+    
                       
         </div>
         </div>

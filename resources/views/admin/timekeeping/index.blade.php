@@ -37,11 +37,11 @@
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('tank_capacity', 'Tank Capacity', ['class' => 'control-label']) !!}        
-            {!! Form::text('tank_capacity', null, ['class'=>'form-control']) !!}
+            {!! Form::select('tank_capacity', [ 2000, 1500, 1000, 500, 200, 100, 20, 15, 10, 5 ], null, ['class'=>'form-control']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('total_liquid', 'Total Liquid', ['class' => 'control-label']) !!}        
-            {!! Form::text('total_liquid', null, ['class'=>'form-control']) !!}
+            {!! Form::selectRange('number', 1,5, null, ['class'=>'form-control']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('is_fruiting', 'Fruiting?', ['class' => 'control-label']) !!}        

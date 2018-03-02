@@ -21,11 +21,11 @@ class CreateTimesTable extends Migration
             $table->integer('chemical_id')->unsigned();            
             $table->integer('tank_capacity');
             $table->integer('total_liquid');
-            $table->string('sprayed_by');
+            $table->integer('sprayed_by')->unsigned();
             $table->string('is_fruiting');
             $table->string('audit_check');
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->time('start_time')->nullable();
+            $table->time('end_time')->nullable();
             $table->time('duration');
             $table->timestamps();
         });
@@ -35,6 +35,7 @@ class CreateTimesTable extends Migration
             $table->foreign('task_id')->references('id')->on('tasks');
             $table->foreign('block_id')->references('id')->on('blocks');
             $table->foreign('chemical_id')->references('id')->on('chemicals');
+            $table->foreign('sprayed_by')->references('id')->on('users');
         });
     }
 

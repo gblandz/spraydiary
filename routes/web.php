@@ -4,6 +4,8 @@ Route::get('/', function () { return redirect('/admin/home'); });
 //Temp reports route..
 Route::get('/admin/reports', function() { return view('admin.reports.index'); });
 
+Route::get("autocomplete",array('as'=>'autocomplete','uses'=> 'TimesController@autocomplete'));
+
 //Greenhouse Routes..
 Route::post('/admin/greenhouse/storeblock','GreenhouseController@storeBlock')->name('admin.greenhouse.storeblock');
 Route::post('/admin/greenhouse/storeshed','GreenhouseController@storeShed')->name('admin.greenhouse.storeshed');

@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <h3 class="page-title">@lang('global.times.title')</h3>
     
@@ -8,8 +7,9 @@
     <div class="col-md-8">
         <div class="box box-primary">
         <div class="box-header with-border">
+            
             <p><strong>Select Details for Recording:</strong></p>
-
+            
             {!! Form::label('task_id', 'Select Task:', ['class' => 'control-label']) !!}
             {!! Form::select('task_id', $tasks, null, ['class' => 'form-control']) !!}
             {!! Form::label('block_id', 'Select Block:', ['class' => 'control-label']) !!}
@@ -17,7 +17,7 @@
             {!! Form::label('shed_id', 'Select Shed (hold shift to select more than one):', array('multiple'=>'multiple','name'=>'sheds[]')) !!}
             {!! Form::select('shed_id', $sheds, null, ['class' => 'form-control']) !!}
             {!! Form::label('chemical_id', 'Chemical Trade Name:', ['class' => 'control-label']) !!}
-            {!! Form::select('chemical_id', $chemicals, null, ['class' => 'form-control']) !!} 
+            {!! Form::text('tradename', '', ['chemical_id' =>  'tradename', 'placeholder' =>  'Enter chemical name', 'class' => 'form-control']) !!} 
             </br>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('pest_disease', 'Pest Disease', ['class' => 'control-label']) !!}        
@@ -50,7 +50,24 @@
             <div class="col-md-3 col-xs-6">
             {!! Form::label('sprayed_by', 'Sprayed By:', ['class' => 'control-label']) !!}        
             {!! Form::text('sprayed_by', $user->name, ['class'=>'form-control', 'readonly']) !!}
+            {!! Form::close() !!}
             </div>
+            
+            
+            
+            <!--<script type="text/javascript">
+                $('#tradename').autocomplete({
+                  source : '{!!URL::route('autocomplete')!!}',
+                  minlenght:1,
+                  autoFocus:true,
+                  select:function(e,ui){
+                    alert(ui);
+                  }
+                });
+            </script> -->
+            
+            
+
         </div>
         </div>
     </div>

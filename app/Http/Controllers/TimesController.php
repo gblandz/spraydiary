@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Auth;
+use Response;
 use App\Time;
 use App\Task;
 use App\User;
@@ -94,5 +96,17 @@ class TimesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function autocomplete(Request $request)
+    {
+        $term=$request->term;
+        $queries = Chemical::where('trade_name','LIKE','%'.$term.'%')->take(5)->get();
+        $result=array();
+        foreach ($queries as $query)
+        {
+            $results[] = [ 'id' => $query->id, 'value' => $query->trade_name ];
+        }
+        return Response::json($results);
     }
 }

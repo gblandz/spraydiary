@@ -53,9 +53,9 @@
             {!! Form::close() !!}
             </div>
             
-            
-            
-            <!--<script type="text/javascript">
+             @section('scripts')
+             @include('partials.javascripts')   
+            <script type="text/javascript">
                 $('#tradename').autocomplete({
                   source : '{!!URL::route('autocomplete')!!}',
                   minlenght:1,
@@ -64,7 +64,8 @@
                     alert(ui);
                   }
                 });
-            </script> -->
+            </script>
+            @show
             
             
 
@@ -202,5 +203,6 @@
             </table>
         </div>
     </div>
+
 @stop
 

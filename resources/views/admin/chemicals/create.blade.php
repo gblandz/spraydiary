@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-xs-12 form-group">
 					{!! Form::label('chem_type', 'Chemical Type*', ['class' => 'control-label']) !!}
-                    {!! Form::text('chem_type', old('chem_type'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                    {!! Form::select('chem_type', $chemSelect, null, ['class' => 'form-control', 'placeholder' => 'Select Chemical Type', 'required' => '']) !!}
                     {!! Form::label('trade_name', 'Trade Name*', ['class' => 'control-label']) !!}
                     {!! Form::text('trade_name', old('name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
                      {!! Form::label('components', 'Components*', ['class' => 'control-label']) !!}

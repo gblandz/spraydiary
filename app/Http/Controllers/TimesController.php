@@ -44,7 +44,11 @@ class TimesController extends Controller
      */
     public function store(Request $request)
     {
-		//
+		$time = new Time();
+        $time->start_time = $request->startTimeContainer;
+        $time->task_id = $request->myId;
+        $time->save();
+        return redirect()->route('admin.timekeeping.index');
     }
     
      public function insert(Request $request)

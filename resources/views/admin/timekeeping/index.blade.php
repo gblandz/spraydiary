@@ -17,7 +17,7 @@
             {!! Form::label('shed_id', 'Select Shed (hold shift to select more than one):', array('multiple'=>'multiple','name'=>'sheds[]')) !!}
             {!! Form::select('shed_id', $sheds, null, ['class' => 'form-control']) !!}
             {!! Form::label('chemical_id', 'Chemical Trade Name:', ['class' => 'control-label']) !!}
-            <td><input class="form-control autocomplete_txt" type='text' data-type="trade_name" id='trade_name_1' name='trade_name[]'/></td>
+            <td><input class="form-control autocomplete_txt" placeholder="Input Chemical Name" type='text' data-type="trade_name" id='trade_name_1' name='trade_name[]'/></td>
  
             </br>
             <div class="col-md-3 col-xs-6">

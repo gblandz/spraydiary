@@ -26,8 +26,8 @@ class TimesController extends Controller
         $blocks = Block::pluck('block_name', 'id');
         $sheds = Shed::pluck('shed_name', 'id');
         $chemicals = Chemical::pluck('trade_name', 'id');
-        $sprayer = Auth::user()->pluck('name');
-       return view('admin.timekeeping.index',compact('times', 'tasks', 'blocks', 'sheds', 'chemicals', 'sprayer'));
+        $user = Auth::user();
+       return view('admin.timekeeping.index',compact('times', 'tasks', 'blocks', 'sheds', 'chemicals', 'user'));
     }
 
     /**

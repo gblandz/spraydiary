@@ -19,37 +19,37 @@
             {!! Form::label('chemical_id', 'Chemical Trade Name:', ['class' => 'control-label']) !!}
             {!! Form::select('chemical_id', $chemicals, null, ['class' => 'form-control']) !!} 
             </br>
-            <div class="col-xs-3">
+            <div class="col-md-3 col-xs-6">
             {!! Form::label('pest_disease', 'Pest Disease', ['class' => 'control-label']) !!}        
             {!! Form::text('pest_disease', 'null', ['class'=>'form-control','readonly']) !!}
             </div>
-            <div class="col-xs-3">
+            <div class="col-md-3 col-xs-6">
             {!! Form::label('components', 'Active Constituents', ['class' => 'control-label']) !!}        
             {!! Form::text('components', 'null', ['class'=>'form-control','readonly']) !!}
             </div>
-            <div class="col-xs-3">
-            {!! Form::label('rates', 'Chemical Application Rate', ['class' => 'control-label']) !!}        
+            <div class="col-md-3 col-xs-6">
+            {!! Form::label('rates', 'Application Rate', ['class' => 'control-label']) !!}        
             {!! Form::text('rates', 'null', ['class'=>'form-control','readonly']) !!}
             </div>
-            <div class="col-xs-3">
+            <div class="col-md-3 col-xs-6">
             {!! Form::label('withhold_period', 'With Hold Period', ['class' => 'control-label']) !!}        
             {!! Form::text('withhold_period', 'null', ['class'=>'form-control','readonly']) !!}
             </div>
-            <div class="col-xs-3">
-            {!! Form::label('tank_capacity', 'Capacity of Spray Tank', ['class' => 'control-label']) !!}        
+            <div class="col-md-3 col-xs-6">
+            {!! Form::label('tank_capacity', 'Tank Capacity', ['class' => 'control-label']) !!}        
             {!! Form::text('tank_capacity', null, ['class'=>'form-control']) !!}
             </div>
-            <div class="col-xs-3">
+            <div class="col-md-3 col-xs-6">
             {!! Form::label('total_liquid', 'Total Liquid', ['class' => 'control-label']) !!}        
             {!! Form::text('total_liquid', null, ['class'=>'form-control']) !!}
             </div>
-            <div class="col-xs-3">
+            <div class="col-md-3 col-xs-6">
             {!! Form::label('is_fruiting', 'Fruiting?', ['class' => 'control-label']) !!}        
             {{ Form::select('is_fruiting', ['Yes', 'No'], null, ['class' => 'form-control']) }}
             </div>
-            <div class="col-xs-3">
+            <div class="col-md-3 col-xs-6">
             {!! Form::label('sprayed_by', 'Sprayed By:', ['class' => 'control-label']) !!}        
-            {!! Form::text('sprayed_by', $sprayer, ['class'=>'form-control', 'readonly']) !!}
+            {!! Form::text('sprayed_by', $user->name, ['class'=>'form-control', 'readonly']) !!}
             </div>
         </div>
         </div>

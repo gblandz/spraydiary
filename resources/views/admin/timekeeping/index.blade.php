@@ -17,7 +17,8 @@
             {!! Form::label('shed_id', 'Select Shed (hold shift to select more than one):', array('multiple'=>'multiple','name'=>'sheds[]')) !!}
             {!! Form::select('shed_id', $sheds, null, ['class' => 'form-control']) !!}
             {!! Form::label('chemical_id', 'Chemical Trade Name:', ['class' => 'control-label']) !!}
-            {!! Form::text('tradename', '', ['chemical_id' =>  'tradename', 'placeholder' =>  'Enter chemical name', 'class' => 'form-control']) !!} 
+            {!! Form::text('chemical_id', null, array('placeholder' => 'Search Chemicals','class' => 'form-control','id'=>'chemical_id')) !!}
+ 
             </br>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('pest_disease', 'Pest Disease', ['class' => 'control-label']) !!}        
@@ -51,28 +52,22 @@
             {!! Form::label('sprayed_by', 'Sprayed By:', ['class' => 'control-label']) !!}        
             {!! Form::text('sprayed_by', $user->name, ['class'=>'form-control', 'readonly']) !!}
             {!! Form::close() !!}
-            </div>
-            
-             @section('scripts')
-             @include('partials.javascripts')   
-            <script type="text/javascript">
-                $('#tradename').autocomplete({
+            </div>         
+
+            <script type="text/javascript"> 
+                $('#chemical_id').autocomplete({
                   source : '{!!URL::route('autocomplete')!!}',
                   minlenght:1,
                   autoFocus:true,
-                  select:function(e,ui){
-                    alert(ui);
-                  }
+                 select: function(event, ui) {
+                    $('#chemical_id').val(ui.item.value);
+                    }
                 });
-            </script>
-            @show
-            
-            
-
+            </script>        
+                      
         </div>
         </div>
     </div>
-
 
     <div class="col-md-4">
         <div style="text-align: center">

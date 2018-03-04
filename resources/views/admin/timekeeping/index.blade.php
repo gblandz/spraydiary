@@ -55,95 +55,8 @@
         </div>
         </div>
     </div>
-<!--
-<div class="col-md-8">
-    <div class="box box-primary">
-    <div class="box-header with-border">
-    <p><strong>Select Details for Recording:</strong></p>
-
-    {!! Form::label('task_id', 'Select Task:', ['class' => 'control-label']) !!}
-    {!! Form::select('task_id', $tasks, null, ['class' => 'form-control']) !!}
-    {!! Form::label('task_id', 'Select Block:', ['class' => 'control-label']) !!}
-    <select class="form-control">
-        <option>Block 1</option>
-        <option>Block 2</option>
-        <option>Block 3</option>
-        </select> 
-    </p>
-    {!! Form::label('task_id', 'Select Shed (hold shift to select more than one):', ['class' => 'control-label']) !!}
-      <select multiple class="form-control" id="sel2">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-      </select>
-    <label for="sel2">Select Chemical:</label>
-         <select class="form-control">
-        <option>Chemical 1</option>
-        <option>Chemical 2</option>
-        <option>Chemical 3</option>
-        </select> 
-    </br>
-        <div class="col-xs-3">
-    <label for="ex2">Pest Disease</label>
-    <input class="form-control" id="disabledInput" type="text" disabled>
-  </div>
-  <div class="col-xs-3">
-    <label for="ex2">Active Constituents</label>
-    <input class="form-control" id="disabledInput" type="text" disabled>
-  </div>
-  <div class="col-xs-3">
-    <label for="ex2">Chemical Application Rate</label>
-    <input class="form-control" id="disabledInput" type="text" disabled>
-  </div>
-  <div class="col-xs-3">
-    <label for="ex2">With Hold Period</label>
-    <input class="form-control" id="disabledInput" type="text" disabled>
-  </div>
-</div>
-</div>
-
-</div>
--->
 
 
-<div class="col-md-4">
-
-<div style="text-align: center">
-	
-    <p><h4>{{ date('F d, Y H:i:s') }}</h4> </p> 
-
-        <span style="font-size: 11px">HH:MM:SS</span><br />
-
-        <label id="hours">
-
-            00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
-
-        <br />
-        <form action="/admin/timekeeping" method="post">
-			{{csrf_field()}}
-			<input type="hidden" name="startTimeContainer" id="startTimeContainer" value={{$date}}> <br/>
-			<input type="hidden" name="myId" id="myId" value=1> <br/>
-			<label id="totalTime"></label>
-			<input type="submit" value="Start" class="btn btn btn-success" id="timeStrtBtn" />
-        </form>
-<!--
-        <button type="button" class="btn btn btn-success" onclick="startTimer()">Start</button>
-        <button type="button" class="btn btn btn-danger" onclick="stopTimer()" id="stop_btn">Stop</button>
--->
-        <br />
-        <form id="timeSave" action="/insert" method="post">
-			{{csrf_field()}}
-			<input type="hidden" name="stopTimeContainer" id="stopTimeContainer" value={{$date}}> <br/>
-			<input type="hidden" name="myId" id="myId" value=1> <br/>
-			<label id="totalTime"></label>
-			<input type="submit" value="Stop" class="btn btn btn-danger" id="timeSbtBtn" />
-        </form>
-</div>
-</div>
-
-<!--
     <div class="col-md-4">
         <div style="text-align: center">
         <p><h4>{{ date('F d, Y H:i:s') }}</h4> </p> 
@@ -152,14 +65,14 @@
             <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
             </br>
             <button type="button" class="btn btn btn-success" onclick="startTimer()">Start</button>
-            <button type="button" class="btn btn btn-danger" onclick="stopTimer()">Stop</button>
+            <input type="text" name="stopTimeContainer" id="stopTimeContainer" value={{$date}}>
+            <button type="button" class="btn btn btn-danger" onclick="stopTimer()" id="stop_btn">Stop</button>
             </br>
             <label id="totalTime">
 
             </label>
         </div>
         </br>
-
     <script type="text/javascript">
 
         var hoursLabel = document.getElementById("hours");
@@ -245,7 +158,7 @@
 
     </script>
     </div>
--->
+
 </div>    
     <div class="panel panel-default">
         <div class="panel-heading">Time Logs</div>

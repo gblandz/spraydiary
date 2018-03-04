@@ -23,23 +23,33 @@
 </script>
 
 <script type="text/javascript">
-	//~ $(document).ready(function(){
-		//~ $("#timeSave").submit(function(){
-			//~ var stopTimeContainer = $("#stopTimeContainer").val();
-			//~ var myId = 1;
-			//~ $.ajax({
-				//~ type: "POST",
-				//~ url: "insert",
-				//~ data: {time:stopTimeContainer, taskId:myId},
-				//~ success: function( msg ) {
-					//~ console.log( "Data Saved: " + msg );
-				//~ },
-				//~ error: function ( msg ) {
-					//~ console.log("Error: "+ msg);
-				//~ }
-			//~ });
-		//~ });
-	//~ });
+	$(document).ready(function(){
+		$("#stop_btn").click(function(){
+			 
+			var token = $('meta[name="_token"]').attr('content');
+			var timetobesaved = $("#stopTimeContainer").val();
+			var myId = 1;
+			//alert(token);
+			$.ajax({
+				type: "POST",
+				url:"{!! URL::to('/insert') !!}",
+				dataType: 'JSON',
+				data: {
+					"_method": 'POST',
+					"_token": token,
+					"stopTimeContainer": timetobesaved,
+					"id": myId,
+				},
+				
+				success: function( dataType ) {
+					console.log( "Data Saved: " + dataType );
+				},
+				error: function (dataType) {
+					console.log( "Error: " + dataType );
+				}
+			});
+		});
+	});
 </script>
 
 @yield('javascript')

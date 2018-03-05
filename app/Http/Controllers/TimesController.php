@@ -98,18 +98,6 @@ class TimesController extends Controller
         //
     }
 
-    //public function autocomplete(Request $request)
-    //{
-      //  $term=$request->term;
-        //$queries = Chemical::where('trade_name','LIKE','%'.$term.'%')->take(5)->get();
-        //$result=array();
-        //foreach ($queries as $query)
-        //{
-        //    $results[] = [ 'id' => $query->id, 'value' => $query->trade_name ];
-        //}
-        //return Response::json($results);
-    //}
-
     public function searchResponse(Request $request){
         $query = $request->get('term','');
         $chemicals=\DB::table('chemicals');

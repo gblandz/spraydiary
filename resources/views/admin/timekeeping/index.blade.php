@@ -15,7 +15,7 @@
             {!! Form::label('block_id', 'Select Block:', ['class' => 'control-label']) !!}
             {!! Form::select('block_id', $blocks, null, ['class' => 'form-control']) !!}
             {!! Form::label('shed_id', 'Select Shed (hold shift to select more than one):', array('multiple'=>'multiple','name'=>'sheds[]')) !!}
-            {!! Form::select('shed_id', $sheds, null, ['class' => 'form-control']) !!}
+            {!! Form::select('sheds[]', $sheds, old('roles'), ['class' => 'form-control select2', 'multiple' => 'multiple', 'required' => '']) !!}
             {!! Form::label('chemical_id', 'Chemical Trade Name:', ['class' => 'control-label']) !!}
             {!! Form::text('chemical_id', '', array('id' => 'trade_name_1', 'name' => 'trade_name[]', 'class' => 'form-control autocomplete_txt', 'type' => 'text', 'data-type' => 'trade_name')) !!} 
             </br>

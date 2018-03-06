@@ -17,7 +17,7 @@
             {!! Form::label('shed_id', 'Select Sheds:', array('multiple'=>'multiple','class'=> 'control-label')) !!}
             {!! Form::select('sheds[]', $sheds, old('roles'), ['class' => 'form-control select2', 'multiple' => 'multiple', 'required' => '']) !!}
             {!! Form::label('chemical_id', 'Chemical Trade Name:', ['class' => 'control-label']) !!}
-            <td><input class="form-control autocomplete_txt" placeholder="Input Chemical Name" type='text' data-type="trade_name" id='trade_name_1' name='trade_name[]'/></td>
+            {!! Form::text('trade_name[]', '', ['class' => 'form-control autocomplete_txt', 'placeholder'=> 'Input Chemical Name', 'type' => 'text', 'data-type' => 'trade_name', 'id' => 'trade_name_1', 'required'=> '']) !!}
             {!! Form::hidden('chemical_id', old('chemical_id'), array('id' => 'id_1')) !!}
             </br>
             <div class="col-md-3 col-xs-6">
@@ -38,21 +38,32 @@
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('tank_capacity', 'Tank Capacity', ['class' => 'control-label']) !!}        
-            {!! Form::select('tank_capacity', [ 2000, 1500, 1000, 500, 200, 100, 20, 15, 10, 5 ], null, ['class'=>'form-control']) !!}
+            {!! Form::select('tank_capacity', [
+                '5' => '5', 
+                '10' => '10', 
+                '15' => '15', 
+                '20' => '20', 
+                '100' => '100',
+                '200' => '200',
+                '500' => '500',
+                '1000' => '1000',
+                '1500' => '1500',
+                '2000' => '2000',
+                ], null, ['placeholder' => 'Select Capacity...', 'class' => 'form-control', 'required' => '']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('total_liquid', 'Total Liquid', ['class' => 'control-label']) !!}        
-            {!! Form::text('total_liquid', null, ['class'=>'form-control']) !!}
+            {!! Form::text('total_liquid', null, ['class'=>'form-control', 'required' => '']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('is_fruiting', 'Fruiting?', ['class' => 'control-label']) !!}        
-            {{ Form::select('is_fruiting', ['Yes', 'No'], null, ['class' => 'form-control']) }}
+            {{ Form::select('is_fruiting', ['Yes' => 'Yes', 'No' => 'No'], null, ['class' => 'form-control']) }}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('sprayed_by', 'Sprayed By:', ['class' => 'control-label']) !!}        
             {!! Form::text('sprayed_by', $user->name, ['class'=>'form-control', 'disabled']) !!}
         </br>
-            {{ Form::submit('Save', array('class' => 'btn')) }}
+            {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
             {!! Form::close() !!}
             </div>        
 

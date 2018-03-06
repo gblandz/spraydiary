@@ -50,7 +50,7 @@ class TimesController extends Controller
      */
     public function store(Request $request)
     {
-        //dd(Input::all());
+        dd(Input::all());
         $time = new Time();
         $time->task_id = $request->task_id;
         $time->block_id = $request->block_id;

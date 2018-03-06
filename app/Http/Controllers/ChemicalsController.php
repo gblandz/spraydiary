@@ -27,7 +27,8 @@ class ChemicalsController extends Controller
      */
     public function create()
     {
-        return view('admin.chemicals.create');
+        $chemSelect = DB::table('chemtypes')->pluck('name','id');
+        return view('admin.chemicals.create', compact('chemSelect'));
     }
 
     /**

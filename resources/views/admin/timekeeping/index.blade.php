@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <h3 class="page-title">@lang('global.times.title')</h3>
     
@@ -9,8 +8,9 @@
     <div class="col-md-8">
         <div class="box box-primary">
         <div class="box-header with-border">
+            
             <p><strong>Select Details for Recording:</strong></p>
-
+            
             {!! Form::label('task_id', 'Select Task:', ['class' => 'control-label']) !!}
             {!! Form::select('task_id', $tasks, null, ['class' => 'form-control']) !!}
             {!! Form::label('block_id', 'Select Block:', ['class' => 'control-label']) !!}
@@ -18,44 +18,92 @@
             {!! Form::label('shed_id', 'Select Shed (hold shift to select more than one):', array('multiple'=>'multiple','name'=>'sheds[]')) !!}
             {!! Form::select('shed_id', $sheds, null, ['class' => 'form-control']) !!}
             {!! Form::label('chemical_id', 'Chemical Trade Name:', ['class' => 'control-label']) !!}
-            {!! Form::select('chemical_id', $chemicals, null, ['class' => 'form-control']) !!} 
+            <td><input class="form-control autocomplete_txt" placeholder="Input Chemical Name" type='text' data-type="trade_name" id='trade_name_1' name='trade_name[]'/></td>
+ 
             </br>
-            <div class="col-xs-3">
+            <div class="col-md-3 col-xs-6">
             {!! Form::label('pest_disease', 'Pest Disease', ['class' => 'control-label']) !!}        
-            {!! Form::text('pest_disease', 'null', ['class'=>'form-control','readonly']) !!}
+            {!! Form::text('pest_disease', '', ['class'=>'form-control','readonly', 'id' => 'pest_disease_1']) !!}
             </div>
-            <div class="col-xs-3">
+            <div class="col-md-3 col-xs-6">
             {!! Form::label('components', 'Active Constituents', ['class' => 'control-label']) !!}        
-            {!! Form::text('components', 'null', ['class'=>'form-control','readonly']) !!}
+            {!! Form::text('components', '', ['class'=>'form-control','readonly', 'id' => 'components_1']) !!}
             </div>
-            <div class="col-xs-3">
-            {!! Form::label('rates', 'Chemical Application Rate', ['class' => 'control-label']) !!}        
-            {!! Form::text('rates', 'null', ['class'=>'form-control','readonly']) !!}
+            <div class="col-md-3 col-xs-6">
+            {!! Form::label('rates', 'Application Rate', ['class' => 'control-label']) !!}        
+            {!! Form::text('rates', '', ['class'=>'form-control','readonly', 'id' => 'rates_1']) !!}
             </div>
-            <div class="col-xs-3">
+            <div class="col-md-3 col-xs-6">
             {!! Form::label('withhold_period', 'With Hold Period', ['class' => 'control-label']) !!}        
-            {!! Form::text('withhold_period', 'null', ['class'=>'form-control','readonly']) !!}
+            {!! Form::text('withhold_period', '', ['class'=>'form-control','readonly', 'id' => 'withhold_period_1']) !!}
             </div>
-            <div class="col-xs-3">
-            {!! Form::label('tank_capacity', 'Capacity of Spray Tank', ['class' => 'control-label']) !!}        
-            {!! Form::text('tank_capacity', null, ['class'=>'form-control']) !!}
+            <div class="col-md-3 col-xs-6">
+            {!! Form::label('tank_capacity', 'Tank Capacity', ['class' => 'control-label']) !!}        
+            {!! Form::select('tank_capacity', [ 2000, 1500, 1000, 500, 200, 100, 20, 15, 10, 5 ], null, ['class'=>'form-control']) !!}
             </div>
-            <div class="col-xs-3">
+            <div class="col-md-3 col-xs-6">
             {!! Form::label('total_liquid', 'Total Liquid', ['class' => 'control-label']) !!}        
             {!! Form::text('total_liquid', null, ['class'=>'form-control']) !!}
             </div>
-            <div class="col-xs-3">
+            <div class="col-md-3 col-xs-6">
             {!! Form::label('is_fruiting', 'Fruiting?', ['class' => 'control-label']) !!}        
             {{ Form::select('is_fruiting', ['Yes', 'No'], null, ['class' => 'form-control']) }}
             </div>
-            <div class="col-xs-3">
+            <div class="col-md-3 col-xs-6">
             {!! Form::label('sprayed_by', 'Sprayed By:', ['class' => 'control-label']) !!}        
-            {!! Form::text('sprayed_by', $sprayer, ['class'=>'form-control', 'readonly']) !!}
-            </div>
+            {!! Form::text('sprayed_by', $user->name, ['class'=>'form-control', 'readonly']) !!}
+            {!! Form::close() !!}
+            </div>        
+
+            <script type="text/javascript">                
+            $(document).on('focus','.autocomplete_txt',function(){
+              type = $(this).data('type');
+              
+              if(type =='trade_name' )autoType='trade_name'; 
+              
+               $(this).autocomplete({
+                   minLength: 0,
+                   source: function( request, response ) {
+                        $.ajax({
+                            url: "{{ route('searchajax') }}",
+                            dataType: "json",
+                            data: {
+                                term : request.term,
+                                type : type,
+                            },
+                            success: function(data) {
+                                var array = $.map(data, function (item) {
+                                   return {
+                                       label: item[autoType],
+                                       value: item[autoType],
+                                       data : item
+                                   }
+                               });
+                                response(array)
+                            }
+                        });
+                   },
+                   select: function( event, ui ) {
+                       var data = ui.item.data;           
+                       id_arr = $(this).attr('id');
+                       id = id_arr.split("_");
+                       elementId = id[id.length-1];
+                       $('#trade_name_'+elementId).val(data.trade_name);
+                       $('#components_'+elementId).val(data.components);
+                       $('#rates_'+elementId).val(data.rates);
+                       $('#withhold_period_'+elementId).val(data.withhold_period);
+                       $('#pest_disease_'+elementId).val(data.pest_disease);
+                   }
+               });
+               
+               
+            });
+            </script>
+    
+                      
         </div>
         </div>
     </div>
-
 
     <div class="col-md-4">
         <div style="text-align: center">
@@ -64,8 +112,12 @@
             <span style="font-size: 11px">HH:MM:SS</span><br />
             <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
             </br>
-            <button type="button" class="btn btn btn-success" onclick="startTimer()">Start</button>
-            <input type="text" name="stopTimeContainer" id="stopTimeContainer" value={{$date}}>
+            <input type="datetime" name="startTimeContainer" id="startTimeContainer" value="{{$date}}"> 
+            <br/>
+            
+            <button type="button" class="btn btn btn-success" onclick="startTimer()" id="start_btn">Start</button> <br/>
+            <input type="datetime-local" name="stopTimeContainer" id="stopTimeContainer" value=""> 
+             <br/>
             <button type="button" class="btn btn btn-danger" onclick="stopTimer()" id="stop_btn">Stop</button>
             </br>
             <label id="totalTime">
@@ -176,10 +228,14 @@
                 <tbody>
                          @foreach ($times as $time)
                             <tr>
-                                <td>{{ date('d-m-Y', strtotime($time->created_at)) }} </td>
-                                <td>{{ $time->start_time }}</td>
-                                <td>{{ $time->end_time }}</td>
-                                <td>{{ $time->duration }}</td>
+                                <td>{{ date('d-m-Y', strtotime($time->end_time)) }} </td>
+                                <td>{{ date('H:i:s', strtotime($time->start_time)) }}</td>
+                                <td>{{ date('H:i:s', strtotime($time->end_time)) }}</td>
+<!--							
+                               {{ $duration = (strtotime($time->end_time))-(strtotime($time->start_time)) /60}}
+                               {{$duration = date('H:i', $duration)}}
+                                <td>{{ $duration }}</td>
+-->
                                 <td>{{ $time->task->description }}</td>
                             </tr>
                         @endforeach                  
@@ -187,5 +243,6 @@
             </table>
         </div>
     </div>
+
 @stop
 

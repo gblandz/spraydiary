@@ -3,8 +3,10 @@
 
 <h3>Reports</h3>
 
-<h1>Page Under Construction</h1>
-
-
+<div class="well">
+<div class="alert alert-warning">
+  <strong>Info!</strong> This page is under construction.
+</div>
+</div>
 
 @endsection

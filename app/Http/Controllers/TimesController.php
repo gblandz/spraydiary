@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Auth;
+use Response;
 use App\Time;
 use App\Task;
 use App\User;
@@ -28,8 +30,10 @@ class TimesController extends Controller
         $blocks = Block::pluck('block_name', 'id');
         $sheds = Shed::pluck('shed_name', 'id');
         $chemicals = Chemical::pluck('trade_name', 'id');
-        $sprayer = Auth::user()->pluck('name');
-       return view('admin.timekeeping.index',compact('times', 'tasks', 'blocks', 'sheds', 'chemicals', 'sprayer','date'));
+
+        $user = Auth::user();
+       return view('admin.timekeeping.index',compact('times', 'tasks', 'blocks', 'sheds', 'chemicals', 'user','date'));
+
     }
 
     /**
@@ -59,9 +63,19 @@ class TimesController extends Controller
     
      public function insert(Request $request)
     {
+		 $time = new Time();
+		 $startTimeContainer = $request->startTimeContainer;
+		 $stopTimeContainer = $request->stopTimeContainer;
+		 //~ DB::table('times')->where('start_time',$startTimeContainer)->update(['end_time'=>$stopTimeContainer]);
+		 DB::table('times')->where('start_time',$startTimeContainer)->update(['end_time'=>$stopTimeContainer]);
+		 return redirect()->route('admin.timekeeping.index');
+	}
+    
+    public function insertStartTime(Request $request)
+    {
 		
 		$time = new Time();
-        $time->end_time = $request->stopTimeContainer;
+        $time->start_time = $request->startTimeContainer;
         $time->task_id = $request->id;
         $time->save();
         return redirect()->route('admin.timekeeping.index');
@@ -111,4 +125,34 @@ class TimesController extends Controller
     {
         //
     }
+
+    public function autocomplete(Request $request)
+    {
+        $term=$request->term;
+        $queries = Chemical::where('trade_name','LIKE','%'.$term.'%')->take(5)->get();
+        $result=array();
+        foreach ($queries as $query)
+        {
+            $results[] = [ 'id' => $query->id, 'value' => $query->trade_name ];
+        }
+        return Response::json($results);
+    }
+
+    public function searchResponse(Request $request){
+        $query = $request->get('term','');
+        $chemicals=\DB::table('chemicals');
+        if($request->type=='trade_name'){
+            $chemicals->where('trade_name','LIKE','%'.$query.'%');
+        }
+        $chemicals=$chemicals->get();        
+        $data=array();
+        foreach ($chemicals as $chemical) {
+                $data[]=array('trade_name'=>$chemical->trade_name, 'components'=>$chemical->components,'rates'=>$chemical->rates, 'withhold_period'=>$chemical->withhold_period, 'pest_disease'=>$chemical->pest_disease,);
+        }
+        if(count($data))
+             return $data;
+        else
+            return ['trade_name'=>'','components'=>'','rates'=>'','withhold_period'=>'','pest_disease'=>''];
+    }
+
 }

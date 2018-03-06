@@ -17,6 +17,7 @@
 <script src="{{ url('adminlte/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ url('adminlte/plugins/fastclick/fastclick.js') }}"></script>
 <script src="{{ url('adminlte/js/app.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 
 <script>
     window._token = '{{ csrf_token() }}';
@@ -24,20 +25,58 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		
+		$("#stop_btn").hide(); 
+		
 		$("#stop_btn").click(function(){
-			 
-			var token = $('meta[name="_token"]').attr('content');
-			var timetobesaved = $("#stopTimeContainer").val();
-			var myId = 1;
-			//alert(token);
+			//~ alert(new Date($.now()));
+			var dt = new Date();
+			var time = dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + " " +dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+			$("#start_btn").show();
+			$("#stop_btn").hide(); 
+			var metoken = $('meta[name="_token"]').attr('content');
+			//~ var metimetobesaved = moment().format('YYYY-MM-DD hh:mm:ss');
+			//~ var stop_time = $("#stopTimeContainer").val(metimetobesaved);
+			var start_time = $("#startTimeContainer").val();
+			var meId = $("#task_id").val();
 			$.ajax({
 				type: "POST",
 				url:"{!! URL::to('/insert') !!}",
 				dataType: 'JSON',
 				data: {
 					"_method": 'POST',
+					"_token": metoken,
+					"stopTimeContainer": time,
+					"startTimeContainer": start_time,
+					"id": meId,
+				},
+				
+				success: function( dataType ) {
+					console.log( "Data Saved: " + dataType );
+					 //location.reload();
+				},
+				error: function (dataType) {
+					console.log( "Error: " + dataType );
+				}
+			});
+		});
+		
+		
+		$("#start_btn").click(function(){
+			$("#stop_btn").show();
+			$("#start_btn").hide();  
+			var token = $('meta[name="_token"]').attr('content');
+			var timetobesaved = $("#startTimeContainer").val();
+			var myId = $("#task_id").val();
+			//~ alert(token);
+			$.ajax({
+				type: "POST",
+				url:"{!! URL::to('/insertStartTime') !!}",
+				dataType: 'JSON',
+				data: {
+					"_method": 'POST',
 					"_token": token,
-					"stopTimeContainer": timetobesaved,
+					"startTimeContainer": timetobesaved,
 					"id": myId,
 				},
 				

@@ -53,7 +53,7 @@
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('total_liquid', 'Total Liquid', ['class' => 'control-label']) !!}        
-            {!! Form::text('total_liquid', null, ['class'=>'form-control', 'required' => '']) !!}
+            {!! Form::text('total_liquid', null, ['class'=>'form-control', 'required' => '', 'id' => 'liquidtotal']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('is_fruiting', 'Fruiting?', ['class' => 'control-label']) !!}        
@@ -113,6 +113,20 @@
                
                
             });
+            </script>
+
+        <!--Total Liquid autocomplete function-->
+    
+
+           <script type="text/javascript">
+                $('#liquidtotal').autocomplete({
+                  source : '{!!URL::route('autoliquidtotal')!!}',
+                  minlenght:1,
+                  autoFocus:true,
+                  select:function(e,ui){
+                    var data = (ui);
+                  }
+                });
             </script>
     
                       

@@ -4,7 +4,7 @@ Route::get('/', function () { return redirect('/admin/home'); });
 //Temp reports route..
 Route::get('/admin/reports', function() { return view('admin.reports.index'); });
 
-Route::get("autocomplete",array('as'=>'autocomplete','uses'=> 'TimesController@autocomplete'));
+Route::get("autoliquidtotal",array('as'=>'autoliquidtotal','uses'=> 'TimesController@autoliquidTotal'));
 Route::get('searchajax', ['as'=>'searchajax','uses'=>'TimesController@searchResponse']);
 
 

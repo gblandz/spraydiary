@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Str;
 use Auth;
 use Response;
 use App\Time;
@@ -125,6 +126,22 @@ class TimesController extends Controller
              return $data;
         else
             return ['id'=>'', 'trade_name'=>'','components'=>'','rates'=>'','withhold_period'=>'','pest_disease'=>''];
+    }
+
+    public function autoliquidTotal(Request $request)
+    {
+        $term = Str::lower(Input::get('term'));
+        $range1 = range(1,15);
+        $range2 = range(50,2000,50);
+        $data = array_merge($range1,$range2);
+        $return_array = array();
+
+        foreach ($data as $k => $v) {
+            if (strpos(Str::lower($v), $term) !== FALSE) {
+                $return_array[] = array('value' => $v, 'id' =>$k);
+            }
+        }
+        return Response::json($return_array);
     }
 
 }

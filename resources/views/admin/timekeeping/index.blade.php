@@ -112,12 +112,9 @@
             <span style="font-size: 11px">HH:MM:SS</span><br />
             <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
             </br>
-            <input type="datetime" name="startTimeContainer" id="startTimeContainer" value="{{$date}}"> 
-            <br/>
-            
-            <button type="button" class="btn btn btn-success" onclick="startTimer()" id="start_btn">Start</button> <br/>
-            <input type="datetime-local" name="stopTimeContainer" id="stopTimeContainer" value=""> 
-             <br/>
+            <input type="hidden" name="startTimeContainer" id="startTimeContainer" value="{{$date}}"> 
+            <button type="button" class="btn btn btn-success" onclick="startTimer()" id="start_btn">Start</button>
+            <input type="hidden" name="stopTimeContainer" id="stopTimeContainer" value=""> 
             <button type="button" class="btn btn btn-danger" onclick="stopTimer()" id="stop_btn">Stop</button>
             </br>
             <label id="totalTime">
@@ -234,8 +231,9 @@
 <!--							
                                {{ $duration = (strtotime($time->end_time))-(strtotime($time->start_time)) /60}}
                                {{$duration = date('H:i', $duration)}}
-                                <td>{{ $duration }}</td>
 -->
+                                <td>{{ $duration }}</td>
+
                                 <td>{{ $time->task->description }}</td>
                             </tr>
                         @endforeach                  

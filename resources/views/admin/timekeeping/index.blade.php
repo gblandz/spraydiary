@@ -9,31 +9,32 @@
         <div class="box-header with-border">
             
             <p><strong>Select Details for Recording:</strong></p>
-            
+            {!! Form::open(['action' => 'TimesController@store']) !!}
             {!! Form::label('task_id', 'Select Task:', ['class' => 'control-label']) !!}
             {!! Form::select('task_id', $tasks, null, ['class' => 'form-control']) !!}
             {!! Form::label('block_id', 'Select Block:', ['class' => 'control-label']) !!}
             {!! Form::select('block_id', $blocks, null, ['class' => 'form-control']) !!}
-            {!! Form::label('shed_id', 'Select Shed (hold shift to select more than one):', array('multiple'=>'multiple','name'=>'sheds[]')) !!}
+            {!! Form::label('shed_id', 'Select Sheds:', array('multiple'=>'multiple','class'=> 'control-label')) !!}
             {!! Form::select('sheds[]', $sheds, old('roles'), ['class' => 'form-control select2', 'multiple' => 'multiple', 'required' => '']) !!}
             {!! Form::label('chemical_id', 'Chemical Trade Name:', ['class' => 'control-label']) !!}
-            {!! Form::text('chemical_id', '', array('id' => 'trade_name_1', 'name' => 'trade_name[]', 'class' => 'form-control autocomplete_txt', 'type' => 'text', 'data-type' => 'trade_name')) !!} 
+            <td><input class="form-control autocomplete_txt" placeholder="Input Chemical Name" type='text' data-type="trade_name" id='trade_name_1' name='trade_name[]'/></td>
+            {!! Form::hidden('chemical_id', old('chemical_id'), array('id' => 'id_1')) !!}
             </br>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('pest_disease', 'Pest Disease', ['class' => 'control-label']) !!}        
-            {!! Form::text('pest_disease', '', ['class'=>'form-control','readonly', 'id' => 'pest_disease_1']) !!}
+            {!! Form::text('pest_disease', '', ['class'=>'form-control','disabled', 'id' => 'pest_disease_1']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('components', 'Active Constituents', ['class' => 'control-label']) !!}        
-            {!! Form::text('components', '', ['class'=>'form-control','readonly', 'id' => 'components_1']) !!}
+            {!! Form::text('components', '', ['class'=>'form-control','disabled', 'id' => 'components_1']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('rates', 'Application Rate', ['class' => 'control-label']) !!}        
-            {!! Form::text('rates', '', ['class'=>'form-control','readonly', 'id' => 'rates_1']) !!}
+            {!! Form::text('rates', '', ['class'=>'form-control','disabled', 'id' => 'rates_1']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('withhold_period', 'With Hold Period', ['class' => 'control-label']) !!}        
-            {!! Form::text('withhold_period', '', ['class'=>'form-control','readonly', 'id' => 'withhold_period_1']) !!}
+            {!! Form::text('withhold_period', '', ['class'=>'form-control','disabled', 'id' => 'withhold_period_1']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('tank_capacity', 'Tank Capacity', ['class' => 'control-label']) !!}        
@@ -49,9 +50,13 @@
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('sprayed_by', 'Sprayed By:', ['class' => 'control-label']) !!}        
-            {!! Form::text('sprayed_by', $user->name, ['class'=>'form-control', 'readonly']) !!}
+            {!! Form::text('sprayed_by', $user->name, ['class'=>'form-control', 'disabled']) !!}
+        </br>
+            {{ Form::submit('Save', array('class' => 'btn')) }}
             {!! Form::close() !!}
             </div>        
+
+        <!--Chemical trade name autocomplete function-->
 
             <script type="text/javascript">                
             $(document).on('focus','.autocomplete_txt',function(){
@@ -86,6 +91,7 @@
                        id_arr = $(this).attr('id');
                        id = id_arr.split("_");
                        elementId = id[id.length-1];
+                       $('#id_'+elementId).val(data.id);
                        $('#trade_name_'+elementId).val(data.trade_name);
                        $('#components_'+elementId).val(data.components);
                        $('#rates_'+elementId).val(data.rates);
@@ -215,6 +221,8 @@
                         <th>Start Time</th>
                         <th>End Time</th>
                         <th>Duration</th>
+                        <th>Block</th>
+                        <th>Sheds</th>
                         <th>Task</th>
                     </tr>
                 </thead>                
@@ -225,6 +233,8 @@
                                 <td>{{ $time->start_time }}</td>
                                 <td>{{ $time->end_time }}</td>
                                 <td>{{ $time->duration }}</td>
+                                <td>{{ $time->block_id }}</td>
+                                <td>{{ $time->sheds }}</td>
                                 <td>{{ $time->task->description }}</td>
                             </tr>
                         @endforeach                  

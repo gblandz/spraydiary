@@ -50,7 +50,19 @@ class TimesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd(Input::all());
+        $time = new Time();
+        $time->task_id = $request->task_id;
+        $time->block_id = $request->block_id;
+        $time->sheds = implode(',', $request->sheds);
+        $time->chemical_id = $request->chemical_id;
+        $time->tank_capacity = $request->tank_capacity;
+        $time->total_liquid = $request->total_liquid;
+        $time->is_fruiting = $request->is_fruiting;
+        $time->sprayed_by = Auth::id();   
+
+        $time->save();
+        return redirect()->route('admin.timekeeping.index');
     }
 
     /**
@@ -107,12 +119,12 @@ class TimesController extends Controller
         $chemicals=$chemicals->get();        
         $data=array();
         foreach ($chemicals as $chemical) {
-                $data[]=array('trade_name'=>$chemical->trade_name, 'components'=>$chemical->components,'rates'=>$chemical->rates, 'withhold_period'=>$chemical->withhold_period, 'pest_disease'=>$chemical->pest_disease,);
+                $data[]=array('id'=>$chemical->id, 'trade_name'=>$chemical->trade_name, 'components'=>$chemical->components,'rates'=>$chemical->rates, 'withhold_period'=>$chemical->withhold_period, 'pest_disease'=>$chemical->pest_disease,);
         }
         if(count($data))
              return $data;
         else
-            return ['trade_name'=>'','components'=>'','rates'=>'','withhold_period'=>'','pest_disease'=>''];
+            return ['id'=>'', 'trade_name'=>'','components'=>'','rates'=>'','withhold_period'=>'','pest_disease'=>''];
     }
 
 }

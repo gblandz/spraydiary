@@ -53,10 +53,11 @@
 				
 				success: function( dataType ) {
 					console.log( "Data Saved: " + dataType );
-					 //location.reload();
+					 location.reload();
 				},
 				error: function (dataType) {
 					console.log( "Error: " + dataType );
+					location.reload();
 				}
 			});
 		});

@@ -30,11 +30,16 @@ class TimesController extends Controller
         $blocks = Block::pluck('block_name', 'id');
         $sheds = Shed::pluck('shed_name', 'id');
         $chemicals = Chemical::pluck('trade_name', 'id');
-		$start_time = DB::table('times')->pluck('start_time');
-		$end_time = DB::table('times')->pluck('end_time');
-		$duration = $start_time->diff($end_time);
+		//~ $to_time = strtotime("2008-12-13 10:42:00");
+		//~ $from_time = strtotime("2008-12-13 10:21:00");
+		//~ $duration = round(abs($to_time - $from_time) / 60,2). " minute";
+		$start_time = strtotime(DB::table('times')->pluck('start_time'));
+		$end_time = strtotime(DB::table('times')->pluck('end_time'));
+		//$duration = $start_time->diff($end_time);
+		$duration =  round(abs($end_time - $start_time) / 60,2);
+        
         $user = Auth::user();
-       return view('admin.timekeeping.index',compact('times', 'tasks', 'blocks', 'sheds', 'chemicals', 'user','date','duration'));
+        return view('admin.timekeeping.index',compact('times', 'tasks', 'blocks', 'sheds', 'chemicals', 'user','date','duration'));
 
     }
 

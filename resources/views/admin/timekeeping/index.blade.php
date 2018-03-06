@@ -113,6 +113,7 @@
             <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
             </br>
             <input type="hidden" name="startTimeContainer" id="startTimeContainer" value="{{$date}}"> 
+            
             <button type="button" class="btn btn btn-success" onclick="startTimer()" id="start_btn">Start</button>
             <input type="hidden" name="stopTimeContainer" id="stopTimeContainer" value=""> 
             <button type="button" class="btn btn btn-danger" onclick="stopTimer()" id="stop_btn">Stop</button>

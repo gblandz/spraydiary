@@ -63,92 +63,50 @@
             {!! Form::label('sprayed_by', 'Sprayed By:', ['class' => 'control-label']) !!}        
             {!! Form::text('sprayed_by', $user->name, ['class'=>'form-control', 'disabled']) !!}
         </br>
-            {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
-            {!! Form::close() !!}
-            </div>        
-
-        <!--Chemical trade name autocomplete function-->
-
-            <script type="text/javascript">                
-            $(document).on('focus','.autocomplete_txt',function(){
-              type = $(this).data('type');
-              
-              if(type =='trade_name' )autoType='trade_name'; 
-              
-               $(this).autocomplete({
-                   minLength: 0,
-                   source: function( request, response ) {
-                        $.ajax({
-                            url: "{{ route('searchajax') }}",
-                            dataType: "json",
-                            data: {
-                                term : request.term,
-                                type : type,
-                            },
-                            success: function(data) {
-                                var array = $.map(data, function (item) {
-                                   return {
-                                       label: item[autoType],
-                                       value: item[autoType],
-                                       data : item
-                                   }
-                               });
-                                response(array)
-                            }
-                        });
-                   },
-                   select: function( event, ui ) {
-                       var data = ui.item.data;           
-                       id_arr = $(this).attr('id');
-                       id = id_arr.split("_");
-                       elementId = id[id.length-1];
-                       $('#id_'+elementId).val(data.id);
-                       $('#trade_name_'+elementId).val(data.trade_name);
-                       $('#components_'+elementId).val(data.components);
-                       $('#rates_'+elementId).val(data.rates);
-                       $('#withhold_period_'+elementId).val(data.withhold_period);
-                       $('#pest_disease_'+elementId).val(data.pest_disease);
-                   }
-               });
-               
-               
-            });
-            </script>
-
-        <!--Total Liquid autocomplete function-->
-    
-
-           <script type="text/javascript">
-                $('#liquidtotal').autocomplete({
-                  source : '{!!URL::route('autoliquidtotal')!!}',
-                  minlenght:1,
-                  autoFocus:true,
-                  select:function(e,ui){
-                    var data = (ui);
-                  }
-                });
-            </script>
-    
-                      
+           
+            </div>             
         </div>
         </div>
     </div>
 
-    <div class="col-md-4">
+<div class="col-md-4">
+    <div class="box box-primary">
+        <div class="box-header with-border">
         <div style="text-align: center">
-        <p><h4>{{ date('F d, Y H:i:s') }}</h4> </p> 
+        <p> {{ date('jS \\of F Y,') }} <strong id="clock"></strong></p>        
 
             <span style="font-size: 11px">HH:MM:SS</span><br />
             <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
             </br>
-            <button type="button" class="btn btn btn-success" onclick="startTimer()">Start</button>
-            <button type="button" class="btn btn btn-danger" onclick="stopTimer()">Stop</button>
+            <input type="hidden" name="startTimeContainer" id="startTimeContainer" value="{{$date}}"> 
+            {{ Form::button('Start', array('class' => 'btn btn-success', 'type' => 'submit', 'onclick' => 'startTimer()', 'id' => 'start_btn')) }}
+            <!--<button type="button" class="btn btn btn-success" onclick="startTimer()" id="start_btn">Start</button>-->
+            {{ Form::button('Stop', array('class' => 'btn btn-danger', 'type' => 'submit', 'onclick' => 'stopTimer()', 'id' => 'stop_btn')) }}
+            <input type="hidden" name="stopTimeContainer" id="stopTimeContainer" value=""> 
+            <!--<button type="button" class="btn btn btn-danger" onclick="stopTimer()" id="stop_btn">Stop</button>-->
             </br>
             <label id="totalTime">
 
             </label>
+            {!! Form::close() !!}
         </div>
-        </br>
+        </div>
+    </div>
+    </br>
+
+<!--Total Liquid autocomplete function-->
+    
+
+    <script type="text/javascript">
+        $('#liquidtotal').autocomplete({
+          source : '{!!URL::route('autoliquidtotal')!!}',
+          minlenght:1,
+          autoFocus:true,
+          select:function(e,ui){
+            var data = (ui);
+          }
+        });
+    </script>
 
     <script type="text/javascript">
 

@@ -4,9 +4,9 @@ Route::get('/', function () { return redirect('/admin/home'); });
 //Temp reports route..
 Route::get('/admin/reports', function() { return view('admin.reports.index'); });
 
+//Autocomplete Routes...
 Route::get("autoliquidtotal",array('as'=>'autoliquidtotal','uses'=> 'TimesController@autoliquidTotal'));
 Route::get('searchajax', ['as'=>'searchajax','uses'=>'TimesController@searchResponse']);
-
 
 //Greenhouse Routes..
 Route::post('/admin/greenhouse/storeblock','GreenhouseController@storeBlock')->name('admin.greenhouse.storeblock');
@@ -32,6 +32,10 @@ $this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('auth.password.reset');
 $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 $this->post('password/reset', 'Auth\ResetPasswordController@reset')->name('auth.password.reset');
+
+//Timekeeping save route
+Route::post('/insert','TimesController@insert');
+Route::post('/insertStartTime','TimesController@insertStartTime');
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/home', 'HomeController@index');

@@ -9,13 +9,14 @@
         <div class="box-header with-border">
             
             <p><strong>Select Details for Recording:</strong></p>
-            {!! Form::open(['action' => 'TimesController@store']) !!}
+
+            {!! Form::open(['action' => 'TimesController@insertStartTime']) !!}
             {!! Form::label('task_id', 'Select Task:', ['class' => 'control-label']) !!}
             {!! Form::select('task_id', $tasks, null, ['class' => 'form-control']) !!}
             {!! Form::label('block_id', 'Select Block:', ['class' => 'control-label']) !!}
             {!! Form::select('block_id', $blocks, null, ['class' => 'form-control']) !!}
             {!! Form::label('shed_id', 'Select Sheds:', array('multiple'=>'multiple','class'=> 'control-label')) !!}
-            {!! Form::select('sheds[]', $sheds, old('roles'), ['class' => 'form-control select2', 'multiple' => 'multiple', 'required' => '']) !!}
+            {!! Form::select('sheds[]', $sheds, old('roles'), ['class' => 'form-control select2', 'multiple' => 'multiple', 'required' => 'required']) !!}
             {!! Form::label('chemical_id', 'Chemical Trade Name:', ['class' => 'control-label']) !!}
             {!! Form::text('trade_name[]', '', ['class' => 'form-control autocomplete_txt', 'placeholder'=> 'Input Chemical Name', 'type' => 'text', 'data-type' => 'trade_name', 'id' => 'trade_name_1', 'required'=> '']) !!}
             {!! Form::hidden('chemical_id', old('chemical_id'), array('id' => 'id_1')) !!}
@@ -79,7 +80,7 @@
             <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
             </br>
             <input type="hidden" name="startTimeContainer" id="startTimeContainer" value="{{$date}}"> 
-            {{ Form::button('Start', array('class' => 'btn btn-success', 'type' => 'submit', 'onclick' => 'startTimer()', 'id' => 'start_btn')) }}
+            {{ Form::button('Start', array('class' => 'btn btn-success', 'type' => 'button', 'onclick' => 'startTimer()', 'id' => 'start_btn')) }}
             <!--<button type="button" class="btn btn btn-success" onclick="startTimer()" id="start_btn">Start</button>-->
             {{ Form::button('Stop', array('class' => 'btn btn-danger', 'type' => 'submit', 'onclick' => 'stopTimer()', 'id' => 'stop_btn')) }}
             <input type="hidden" name="stopTimeContainer" id="stopTimeContainer" value=""> 

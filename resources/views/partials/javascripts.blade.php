@@ -63,30 +63,36 @@
 		
 		
 		$("#start_btn").click(function(){
-			$("#stop_btn").show();
-			$("#start_btn").hide();  
-			var token = $('meta[name="_token"]').attr('content');
-			var timetobesaved = $("#startTimeContainer").val();
-			var myId = $("#task_id").val();
-			//~ alert(token);
-			$.ajax({
-				type: "POST",
-				url:"{!! URL::to('/insertStartTime') !!}",
-				dataType: 'JSON',
-				data: {
-					"_method": 'POST',
-					"_token": token,
-					"startTimeContainer": timetobesaved,
-					"id": myId,
-				},
-				
-				success: function( dataType ) {
-					console.log( "Data Saved: " + dataType );
-				},
-				error: function (dataType) {
-					console.log( "Error: " + dataType );
-				}
-			});
+
+			if($(".required").val() == "") {
+				alert("Please fill up the form");
+			} else {
+				$("#stop_btn").show();
+				$("#start_btn").hide();  
+				var token = $('meta[name="_token"]').attr('content');
+				var timetobesaved = $("#startTimeContainer").val();
+				var myId = $("#task_id").val();
+				//~ alert(token);
+				$.ajax({
+					type: "POST",
+					url:"{!! URL::to('/insertStartTime') !!}",
+					dataType: 'JSON',
+					data: {
+						"_method": 'POST',
+						"_token": token,
+						"startTimeContainer": timetobesaved,
+						"id": myId,
+					},
+					
+					success: function( dataType ) {
+						console.log( "Data Saved: " + dataType );
+					},
+					error: function (dataType) {
+						console.log( "Error: " + dataType );
+					}
+				});
+			}
+			
 		});
 	});
 </script>

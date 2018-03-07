@@ -69,15 +69,7 @@ class TimesController extends Controller
         return redirect()->route('admin.timekeeping.index');
     }
     
-     public function insert(Request $request)
-    {
-		 $time = new Time();
-		 $startTimeContainer = $request->startTimeContainer;
-		 $stopTimeContainer = $request->stopTimeContainer;
-		 //~ DB::table('times')->where('start_time',$startTimeContainer)->update(['end_time'=>$stopTimeContainer]);
-		 DB::table('times')->where('start_time',$startTimeContainer)->update(['end_time'=>$stopTimeContainer]);
-		 return redirect()->route('admin.timekeeping.index');
-	}
+    
     
     public function insertStartTime(Request $request)
     {
@@ -87,10 +79,55 @@ class TimesController extends Controller
         //~ $time->task_id = $request->id;
         //~ $time->save();
         //~ return redirect()->route('admin.timekeeping.index');
-        //dd(Input::all());
+        dd(Input::all());
         $time = new Time();
         $time->start_time = $request->startTimeContainer;
-        $time->task_id = $request->id;
+        $time->task_id = $request->task_id;
+        $time->block_id = $request->block_id;
+        $time->sheds =  implode(',', $request->sheds);
+        $time->chemical_id = $request->chemical_id;
+        $time->tank_capacity = $request->tank_capacity;
+        $time->total_liquid = $request->total_liquid;
+        $time->is_fruiting = $request->is_fruiting;
+        $time->sprayed_by = Auth::id();
+        
+        $time->save();
+        return redirect()->route('admin.timekeeping.index');
+    }
+
+
+
+     //~ public function insert(Request $request)
+    //~ {
+         //~ $time = new Time();
+         //~ $startTimeContainer = $request->startTimeContainer;
+         //~ $stopTimeContainer = $request->stopTimeContainer;
+        // DB::table('times')->where('start_time',$startTimeContainer)->update(['end_time'=>$stopTimeContainer]);
+
+     public function insert(Request $request)
+    {
+         //dd(Input::all()); 
+         $time = new Time();
+         $startTimeContainer = $request->startTimeContainer;
+         $stopTimeContainer = $request->stopTimeContainer;
+
+         //~ DB::table('times')->where('start_time',$startTimeContainer)->update(['end_time'=>$stopTimeContainer]);
+         //~ return redirect()->route('admin.timekeeping.index');
+    //~ }
+
+    //~ public function insertStartTime(Request $request)
+    //~ {
+        
+
+        //~ $time = new Time();
+        //~ $time->start_time = $request->startTimeContainer;
+        //~ $time->task_id = $request->id;
+        //~ $time->save();
+        //~ return redirect()->route('admin.timekeeping.index');
+    //~ }
+
+        $time = new Time();
+        $time->start_time = $request->startTimeContainer;
         $time->task_id = $request->task_id;
         $time->block_id = $request->block_id;
         $time->sheds = implode(',', $request->sheds);
@@ -104,26 +141,6 @@ class TimesController extends Controller
         return redirect()->route('admin.timekeeping.index');
     }
 
-
-     //~ public function insert(Request $request)
-    //~ {
-         //~ $time = new Time();
-         //~ $startTimeContainer = $request->startTimeContainer;
-         //~ $stopTimeContainer = $request->stopTimeContainer;
-        // DB::table('times')->where('start_time',$startTimeContainer)->update(['end_time'=>$stopTimeContainer]);
-         //~ DB::table('times')->where('start_time',$startTimeContainer)->update(['end_time'=>$stopTimeContainer]);
-         //~ return redirect()->route('admin.timekeeping.index');
-    //~ }
-
-    //~ public function insertStartTime(Request $request)
-    //~ {
-        
-        //~ $time = new Time();
-        //~ $time->start_time = $request->startTimeContainer;
-        //~ $time->task_id = $request->id;
-        //~ $time->save();
-        //~ return redirect()->route('admin.timekeeping.index');
-    //~ }
 
 
     /**

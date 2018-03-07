@@ -10,13 +10,17 @@
         <div class="box-header with-border">
             
             <p><strong>Select Details for Recording:</strong></p>
-            {!! Form::open(['action' => 'TimesController@store']) !!}
+
+<!--
+            {!! Form::open(['action' => 'TimesController@insertStartTime']) !!}
+-->	
+			<input type="text" name="token" id="token" value={{csrf_token()}} >
             {!! Form::label('task_id', 'Select Task:', ['class' => 'control-label']) !!}
             {!! Form::select('task_id', $tasks, null, ['class' => 'form-control']) !!}
             {!! Form::label('block_id', 'Select Block:', ['class' => 'control-label']) !!}
             {!! Form::select('block_id', $blocks, null, ['class' => 'form-control']) !!}
             {!! Form::label('shed_id', 'Select Sheds:', array('multiple'=>'multiple','class'=> 'control-label')) !!}
-            {!! Form::select('sheds[]', $sheds, old('roles'), ['class' => 'form-control select2', 'multiple' => 'multiple', 'required' => '']) !!}
+            {!! Form::select('sheds[]', $sheds, old('sheds'), ['class' => 'form-control select2', 'multiple' => 'multiple', 'required' => 'required', 'id'=> 'sheds']) !!}
             {!! Form::label('chemical_id', 'Chemical Trade Name:', ['class' => 'control-label']) !!}
             {!! Form::text('trade_name[]', '', ['class' => 'form-control autocomplete_txt', 'placeholder'=> 'Input Chemical Name', 'type' => 'text', 'data-type' => 'trade_name', 'id' => 'trade_name_1', 'required'=> '']) !!}
             {!! Form::hidden('chemical_id', old('chemical_id'), array('id' => 'id_1')) !!}
@@ -50,7 +54,7 @@
                 '1000' => '1000',
                 '1500' => '1500',
                 '2000' => '2000',
-                ], null, ['placeholder' => 'Select Capacity...', 'class' => 'form-control', 'required' => '']) !!}
+                ], null, ['placeholder' => 'Select Capacity...', 'class' => 'form-control', 'required' => '','id'=>'tank_capacity']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('total_liquid', 'Total Liquid', ['class' => 'control-label']) !!}        
@@ -58,11 +62,11 @@
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('is_fruiting', 'Fruiting?', ['class' => 'control-label']) !!}        
-            {{ Form::select('is_fruiting', ['Yes' => 'Yes', 'No' => 'No'], null, ['class' => 'form-control']) }}
+            {{ Form::select('is_fruiting', ['Yes' => 'Yes', 'No' => 'No'], null, ['class' => 'form-control','id'=>'is_fruiting']) }}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('sprayed_by', 'Sprayed By:', ['class' => 'control-label']) !!}        
-            {!! Form::text('sprayed_by', $user->name, ['class'=>'form-control', 'disabled']) !!}
+            {!! Form::text('sprayed_by', $user->name, ['class'=>'form-control', 'disabled','id'=>'sprayed_by']) !!}
         </br>
            
             </div>             
@@ -81,11 +85,17 @@
             </br>
             <input type="hidden" name="startTimeContainer" id="startTimeContainer" value="{{$date}}"> 
 
-            {{ Form::button('Start', array('class' => 'btn btn-success', 'type' => 'submit', 'onclick' => 'startTimer()', 'id' => 'start_btn')) }}
-            <!--<button type="button" class="btn btn btn-success" onclick="startTimer()" id="start_btn">Start</button>-->
+
+<!--
+            {{ Form::button('Start', array('class' => 'btn btn-success', 'type' => 'button', 'onclick' => 'startTimer()', 'id' => 'start_btn')) }}
+-->
+
+           <button type="button" class="btn btn btn-success" onclick="startTimer()" id="start_btn">Start</button>
+<!--
             {{ Form::button('Stop', array('class' => 'btn btn-danger', 'type' => 'submit', 'onclick' => 'stopTimer()', 'id' => 'stop_btn')) }}
+-->
             <input type="hidden" name="stopTimeContainer" id="stopTimeContainer" value=""> 
-            <!--<button type="button" class="btn btn btn-danger" onclick="stopTimer()" id="stop_btn">Stop</button>-->
+           <button type="button" class="btn btn btn-danger" onclick="stopTimer()" id="stop_btn">Stop</button>
 
             </br>
             <label id="totalTime">

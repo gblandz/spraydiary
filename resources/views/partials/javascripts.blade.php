@@ -67,30 +67,53 @@
 		
 		
 		$("#start_btn").click(function(){
-			$("#stop_btn").show();
-			$("#start_btn").hide();  
-			var token = $('meta[name="_token"]').attr('content');
-			var timetobesaved = $("#startTimeContainer").val();
-			var myId = $("#task_id").val();
-			//~ alert(token);
-			$.ajax({
-				type: "POST",
-				url:"{!! URL::to('/insertStartTime') !!}",
-				dataType: 'JSON',
-				data: {
-					"_method": 'POST',
-					"_token": token,
-					"startTimeContainer": timetobesaved,
-					"id": myId,
-				},
+
+			//~ if($(".required").val() == "") {
+				//~ alert("Please fill up the form");
+			//~ } else {
+				$("#stop_btn").show();
+				$("#start_btn").hide();  
+				var token = $('meta[name="_token"]').attr('content');
+				var timetobesaved = $("#startTimeContainer").val();
+				var block_id = $("#block_id").val();
+				var myId = $("#task_id").val();
+				var sheds = $("#sheds").val();
+				var chemical_id = $("#id_1").val();
+				var tank_capacity = $("#tank_capacity").val();
+				var total_liquid = $("#liquidtotal").val();
+				var is_fruiting = $("#is_fruiting").val();
+				var sprayed_by = $("#sprayed_by").val();
 				
-				success: function( dataType ) {
-					console.log( "Data Saved: " + dataType );
-				},
-				error: function (dataType) {
-					console.log( "Error: " + dataType );
-				}
-			});
+				
+				
+				 //~ alert(sprayed_by);
+				$.ajax({
+					type: "POST",
+					url:"{!! URL::to('/insertStartTime') !!}",
+					dataType: 'JSON',
+					data: {
+						"_method": 'POST',
+						"_token": token,
+						"startTimeContainer": timetobesaved,
+						"id": myId,
+						"block_id":block_id,
+						"sheds":sheds,
+						"chemical_id":chemical_id,
+						"tank_capacity":tank_capacity,
+						"total_liquid":total_liquid,
+						"is_fruiting":is_fruiting,
+						"sprayed_by":sprayed_by,
+					},
+					
+					success: function( dataType ) {
+						console.log( "Data Saved: " + dataType );
+					},
+					error: function (dataType) {
+						console.log( "Error: " + dataType );
+					}
+				});
+			//}
+			
 		});
 	});
 </script>

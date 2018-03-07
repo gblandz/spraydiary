@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Str;
 use Auth;
 use Response;
 use App\Time;
@@ -25,6 +26,7 @@ class TimesController extends Controller
     {   
         $times = Time::all();
         $tasks = Auth::user()->tasks->pluck('description', 'id');
+
 		date_default_timezone_set('Australia/Brisbane');
         $date = date('Y-m-d H:i:s');
         $blocks = Block::pluck('block_name', 'id');
@@ -40,7 +42,6 @@ class TimesController extends Controller
         
         $user = Auth::user();
         return view('admin.timekeeping.index',compact('times', 'tasks', 'blocks', 'sheds', 'chemicals', 'user','date','duration'));
-
     }
 
     /**
@@ -81,12 +82,49 @@ class TimesController extends Controller
     public function insertStartTime(Request $request)
     {
 		
-		$time = new Time();
+		//~ $time = new Time();
+        //~ $time->start_time = $request->startTimeContainer;
+        //~ $time->task_id = $request->id;
+        //~ $time->save();
+        //~ return redirect()->route('admin.timekeeping.index');
+        //dd(Input::all());
+        $time = new Time();
         $time->start_time = $request->startTimeContainer;
         $time->task_id = $request->id;
+        $time->task_id = $request->task_id;
+        $time->block_id = $request->block_id;
+        $time->sheds = implode(',', $request->sheds);
+        $time->chemical_id = $request->chemical_id;
+        $time->tank_capacity = $request->tank_capacity;
+        $time->total_liquid = $request->total_liquid;
+        $time->is_fruiting = $request->is_fruiting;
+        $time->sprayed_by = Auth::id();   
+
         $time->save();
         return redirect()->route('admin.timekeeping.index');
     }
+
+
+     //~ public function insert(Request $request)
+    //~ {
+         //~ $time = new Time();
+         //~ $startTimeContainer = $request->startTimeContainer;
+         //~ $stopTimeContainer = $request->stopTimeContainer;
+        // DB::table('times')->where('start_time',$startTimeContainer)->update(['end_time'=>$stopTimeContainer]);
+         //~ DB::table('times')->where('start_time',$startTimeContainer)->update(['end_time'=>$stopTimeContainer]);
+         //~ return redirect()->route('admin.timekeeping.index');
+    //~ }
+
+    //~ public function insertStartTime(Request $request)
+    //~ {
+        
+        //~ $time = new Time();
+        //~ $time->start_time = $request->startTimeContainer;
+        //~ $time->task_id = $request->id;
+        //~ $time->save();
+        //~ return redirect()->route('admin.timekeeping.index');
+    //~ }
+
 
     /**
      * Display the specified resource.
@@ -133,18 +171,6 @@ class TimesController extends Controller
         //
     }
 
-    public function autocomplete(Request $request)
-    {
-        $term=$request->term;
-        $queries = Chemical::where('trade_name','LIKE','%'.$term.'%')->take(5)->get();
-        $result=array();
-        foreach ($queries as $query)
-        {
-            $results[] = [ 'id' => $query->id, 'value' => $query->trade_name ];
-        }
-        return Response::json($results);
-    }
-
     public function searchResponse(Request $request){
         $query = $request->get('term','');
         $chemicals=\DB::table('chemicals');
@@ -154,12 +180,28 @@ class TimesController extends Controller
         $chemicals=$chemicals->get();        
         $data=array();
         foreach ($chemicals as $chemical) {
-                $data[]=array('trade_name'=>$chemical->trade_name, 'components'=>$chemical->components,'rates'=>$chemical->rates, 'withhold_period'=>$chemical->withhold_period, 'pest_disease'=>$chemical->pest_disease,);
+                $data[]=array('id'=>$chemical->id, 'trade_name'=>$chemical->trade_name, 'components'=>$chemical->components,'rates'=>$chemical->rates, 'withhold_period'=>$chemical->withhold_period, 'pest_disease'=>$chemical->pest_disease,);
         }
         if(count($data))
              return $data;
         else
-            return ['trade_name'=>'','components'=>'','rates'=>'','withhold_period'=>'','pest_disease'=>''];
+            return ['id'=>'', 'trade_name'=>'','components'=>'','rates'=>'','withhold_period'=>'','pest_disease'=>''];
+    }
+
+    public function autoliquidTotal(Request $request)
+    {
+        $term = Str::lower(Input::get('term'));
+        $range1 = range(1,15);
+        $range2 = range(50,2000,50);
+        $data = array_merge($range1,$range2);
+        $return_array = array();
+
+        foreach ($data as $k => $v) {
+            if (strpos(Str::lower($v), $term) !== FALSE) {
+                $return_array[] = array('value' => $v, 'id' =>$k);
+            }
+        }
+        return Response::json($return_array);
     }
 
 }

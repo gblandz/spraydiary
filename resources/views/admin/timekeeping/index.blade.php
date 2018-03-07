@@ -10,119 +10,111 @@
         <div class="box-header with-border">
             
             <p><strong>Select Details for Recording:</strong></p>
-            
+            {!! Form::open(['action' => 'TimesController@store']) !!}
             {!! Form::label('task_id', 'Select Task:', ['class' => 'control-label']) !!}
             {!! Form::select('task_id', $tasks, null, ['class' => 'form-control']) !!}
             {!! Form::label('block_id', 'Select Block:', ['class' => 'control-label']) !!}
             {!! Form::select('block_id', $blocks, null, ['class' => 'form-control']) !!}
-            {!! Form::label('shed_id', 'Select Shed (hold shift to select more than one):', array('multiple'=>'multiple','name'=>'sheds[]')) !!}
-            {!! Form::select('shed_id', $sheds, null, ['class' => 'form-control']) !!}
+            {!! Form::label('shed_id', 'Select Sheds:', array('multiple'=>'multiple','class'=> 'control-label')) !!}
+            {!! Form::select('sheds[]', $sheds, old('roles'), ['class' => 'form-control select2', 'multiple' => 'multiple', 'required' => '']) !!}
             {!! Form::label('chemical_id', 'Chemical Trade Name:', ['class' => 'control-label']) !!}
-            <td><input class="form-control autocomplete_txt" placeholder="Input Chemical Name" type='text' data-type="trade_name" id='trade_name_1' name='trade_name[]'/></td>
- 
+            {!! Form::text('trade_name[]', '', ['class' => 'form-control autocomplete_txt', 'placeholder'=> 'Input Chemical Name', 'type' => 'text', 'data-type' => 'trade_name', 'id' => 'trade_name_1', 'required'=> '']) !!}
+            {!! Form::hidden('chemical_id', old('chemical_id'), array('id' => 'id_1')) !!}
             </br>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('pest_disease', 'Pest Disease', ['class' => 'control-label']) !!}        
-            {!! Form::text('pest_disease', '', ['class'=>'form-control','readonly', 'id' => 'pest_disease_1']) !!}
+            {!! Form::text('pest_disease', '', ['class'=>'form-control','disabled', 'id' => 'pest_disease_1']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('components', 'Active Constituents', ['class' => 'control-label']) !!}        
-            {!! Form::text('components', '', ['class'=>'form-control','readonly', 'id' => 'components_1']) !!}
+            {!! Form::text('components', '', ['class'=>'form-control','disabled', 'id' => 'components_1']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('rates', 'Application Rate', ['class' => 'control-label']) !!}        
-            {!! Form::text('rates', '', ['class'=>'form-control','readonly', 'id' => 'rates_1']) !!}
+            {!! Form::text('rates', '', ['class'=>'form-control','disabled', 'id' => 'rates_1']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('withhold_period', 'With Hold Period', ['class' => 'control-label']) !!}        
-            {!! Form::text('withhold_period', '', ['class'=>'form-control','readonly', 'id' => 'withhold_period_1']) !!}
+            {!! Form::text('withhold_period', '', ['class'=>'form-control','disabled', 'id' => 'withhold_period_1']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('tank_capacity', 'Tank Capacity', ['class' => 'control-label']) !!}        
-            {!! Form::select('tank_capacity', [ 2000, 1500, 1000, 500, 200, 100, 20, 15, 10, 5 ], null, ['class'=>'form-control']) !!}
+            {!! Form::select('tank_capacity', [
+                '5' => '5', 
+                '10' => '10', 
+                '15' => '15', 
+                '20' => '20', 
+                '100' => '100',
+                '200' => '200',
+                '500' => '500',
+                '1000' => '1000',
+                '1500' => '1500',
+                '2000' => '2000',
+                ], null, ['placeholder' => 'Select Capacity...', 'class' => 'form-control', 'required' => '']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('total_liquid', 'Total Liquid', ['class' => 'control-label']) !!}        
-            {!! Form::text('total_liquid', null, ['class'=>'form-control']) !!}
+            {!! Form::text('total_liquid', null, ['class'=>'form-control', 'required' => '', 'id' => 'liquidtotal']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('is_fruiting', 'Fruiting?', ['class' => 'control-label']) !!}        
-            {{ Form::select('is_fruiting', ['Yes', 'No'], null, ['class' => 'form-control']) }}
+            {{ Form::select('is_fruiting', ['Yes' => 'Yes', 'No' => 'No'], null, ['class' => 'form-control']) }}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('sprayed_by', 'Sprayed By:', ['class' => 'control-label']) !!}        
-            {!! Form::text('sprayed_by', $user->name, ['class'=>'form-control', 'readonly']) !!}
-            {!! Form::close() !!}
-            </div>        
-
-            <script type="text/javascript">                
-            $(document).on('focus','.autocomplete_txt',function(){
-              type = $(this).data('type');
-              
-              if(type =='trade_name' )autoType='trade_name'; 
-              
-               $(this).autocomplete({
-                   minLength: 0,
-                   source: function( request, response ) {
-                        $.ajax({
-                            url: "{{ route('searchajax') }}",
-                            dataType: "json",
-                            data: {
-                                term : request.term,
-                                type : type,
-                            },
-                            success: function(data) {
-                                var array = $.map(data, function (item) {
-                                   return {
-                                       label: item[autoType],
-                                       value: item[autoType],
-                                       data : item
-                                   }
-                               });
-                                response(array)
-                            }
-                        });
-                   },
-                   select: function( event, ui ) {
-                       var data = ui.item.data;           
-                       id_arr = $(this).attr('id');
-                       id = id_arr.split("_");
-                       elementId = id[id.length-1];
-                       $('#trade_name_'+elementId).val(data.trade_name);
-                       $('#components_'+elementId).val(data.components);
-                       $('#rates_'+elementId).val(data.rates);
-                       $('#withhold_period_'+elementId).val(data.withhold_period);
-                       $('#pest_disease_'+elementId).val(data.pest_disease);
-                   }
-               });
-               
-               
-            });
-            </script>
-    
-                      
+            {!! Form::text('sprayed_by', $user->name, ['class'=>'form-control', 'disabled']) !!}
+        </br>
+           
+            </div>             
         </div>
         </div>
     </div>
 
-    <div class="col-md-4">
+<div class="col-md-4">
+    <div class="box box-primary">
+        <div class="box-header with-border">
         <div style="text-align: center">
-        <p><h4>{{ date('F d, Y H:i:s') }}</h4> </p> 
+        <p> {{ date('jS \\of F Y,') }} <strong id="clock"></strong></p>        
 
             <span style="font-size: 11px">HH:MM:SS</span><br />
             <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
             </br>
             <input type="hidden" name="startTimeContainer" id="startTimeContainer" value="{{$date}}"> 
-            
-            <button type="button" class="btn btn btn-success" onclick="startTimer()" id="start_btn">Start</button>
+
+            {{ Form::button('Start', array('class' => 'btn btn-success', 'type' => 'submit', 'onclick' => 'startTimer()', 'id' => 'start_btn')) }}
+            <!--<button type="button" class="btn btn btn-success" onclick="startTimer()" id="start_btn">Start</button>-->
+            {{ Form::button('Stop', array('class' => 'btn btn-danger', 'type' => 'submit', 'onclick' => 'stopTimer()', 'id' => 'stop_btn')) }}
             <input type="hidden" name="stopTimeContainer" id="stopTimeContainer" value=""> 
-            <button type="button" class="btn btn btn-danger" onclick="stopTimer()" id="stop_btn">Stop</button>
+            <!--<button type="button" class="btn btn btn-danger" onclick="stopTimer()" id="stop_btn">Stop</button>-->
+
             </br>
             <label id="totalTime">
 
             </label>
+            {!! Form::close() !!}
         </div>
+
         </br>
+
+        </div>
+    </div>
+    </br>
+
+<!--Total Liquid autocomplete function-->
+    
+
+    <script type="text/javascript">
+        $('#liquidtotal').autocomplete({
+          source : '{!!URL::route('autoliquidtotal')!!}',
+          minlenght:1,
+          autoFocus:true,
+          select:function(e,ui){
+            var data = (ui);
+          }
+        });
+    </script>
+
+
     <script type="text/javascript">
 
         var hoursLabel = document.getElementById("hours");
@@ -220,13 +212,15 @@
                         <th>Start Time</th>
                         <th>End Time</th>
                         <th>Duration</th>
+                        <th>Block</th>
+                        <th>Sheds</th>
                         <th>Task</th>
                     </tr>
                 </thead>                
                 <tbody>
                          @foreach ($times as $time)
                             <tr>
-                                <td>{{ date('d-m-Y', strtotime($time->end_time)) }} </td>
+                                <td>{{ date('d-m-Y', strtotime($time->start_time)) }} </td>
                                 <td>{{ date('H:i:s', strtotime($time->start_time)) }}</td>
                                 <td>{{ date('H:i:s', strtotime($time->end_time)) }}</td>
 <!--							
@@ -234,7 +228,8 @@
                                {{$duration = date('H:i', $duration)}}
 -->
                                 <td>{{ $duration }}</td>
-
+                                <td>{{ $time->block_id }}</td>
+                                <td>{{ $time->sheds }}</td>
                                 <td>{{ $time->task->description }}</td>
                             </tr>
                         @endforeach                  

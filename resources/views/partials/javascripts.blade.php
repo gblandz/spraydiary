@@ -84,7 +84,16 @@
 				var is_fruiting = $("#is_fruiting").val();
 				var sprayed_by = $("#sprayed_by").val();
 				
-				
+				// make all fields read-only
+				$('#task_id').attr('disabled',true);
+				$('#block_id').attr('disabled',true);
+				$('#sheds').attr('disabled',true);
+				$('#id_1').attr('disabled',true);
+				$('#tank_capacity').attr('disabled',true);
+				$('#liquidtotal').attr('disabled',true);
+				$('#is_fruiting').attr('disabled',true);
+				$('#sprayed_by').attr('disabled',true);
+				$('#trade_name_1').attr('disabled',true);
 				
 				 //alert(sheds);
 				$.ajax({
@@ -111,7 +120,7 @@
 					},
 					error: function (ts) {
 						//~ console.log( "Error: " + data );
-						alert(ts.responseText);
+						console.log(ts.responseText);
 					}
 				});
 			//}

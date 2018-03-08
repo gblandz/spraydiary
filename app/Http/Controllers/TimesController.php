@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 use Auth;
 use Response;
 use App\Time;
@@ -26,9 +27,8 @@ class TimesController extends Controller
     {   
         $times = Time::all();
         $tasks = Auth::user()->tasks->pluck('description', 'id');
-
-		date_default_timezone_set('Australia/Brisbane');
-        $date = date('Y-m-d H:i:s');
+        $date = Carbon::now();
+        $date->toDateTimeString();
         $blocks = Block::pluck('block_name', 'id');
         $sheds = Shed::pluck('shed_name', 'id');
         $chemicals = Chemical::pluck('trade_name', 'id');

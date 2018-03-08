@@ -27,8 +27,7 @@ class TimesController extends Controller
     {   
         $times = Time::all();
         $tasks = Auth::user()->tasks->pluck('description', 'id');
-        $date = Carbon::now();
-        $date->toDateTimeString();
+        $date = Carbon::now('Australia/Brisbane')->toDateTimeString();
         $blocks = Block::pluck('block_name', 'id');
         $sheds = Shed::pluck('shed_name', 'id');
         $chemicals = Chemical::pluck('trade_name', 'id');

@@ -14,9 +14,11 @@
 <!--
             {!! Form::open(['action' => 'TimesController@insertStartTime']) !!}
 -->	
+<!--
 			<input type="text" name="token" id="token" value={{csrf_token()}} >
+-->
             {!! Form::label('task_id', 'Select Task:', ['class' => 'control-label']) !!}
-            {!! Form::select('task_id', $tasks, null, ['class' => 'form-control']) !!}
+            {!! Form::select('task_id', $tasks, null, ['class' => 'form-control','id'=>'task_id']) !!}
             {!! Form::label('block_id', 'Select Block:', ['class' => 'control-label']) !!}
             {!! Form::select('block_id', $blocks, null, ['class' => 'form-control']) !!}
             {!! Form::label('shed_id', 'Select Sheds:', array('multiple'=>'multiple','class'=> 'control-label')) !!}

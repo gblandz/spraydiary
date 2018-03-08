@@ -58,8 +58,8 @@
 					console.log( "Data Saved: " + dataType );
 					 location.reload();
 				},
-				error: function (dataType) {
-					console.log( "Error: " + dataType );
+				error: function (ts) {
+					console.log( "Error: " + ts.responseText );
 					location.reload();
 				},
 			});
@@ -76,7 +76,7 @@
 				var token = $('meta[name="_token"]').attr('content');
 				var timetobesaved = $("#startTimeContainer").val();
 				var block_id = $("#block_id").val();
-				var myId = $("#task_id").val();
+				var task_id = $("#task_id").val();
 				var sheds = $("#sheds").val();
 				var chemical_id = $("#id_1").val();
 				var tank_capacity = $("#tank_capacity").val();
@@ -86,7 +86,7 @@
 				
 				
 				
-				 //~ alert(sprayed_by);
+				 //alert(sheds);
 				$.ajax({
 					type: "POST",
 					url:"{!! URL::to('/insertStartTime') !!}",
@@ -95,7 +95,7 @@
 						"_method": 'POST',
 						"_token": token,
 						"startTimeContainer": timetobesaved,
-						"id": myId,
+						"task_id": task_id,
 						"block_id":block_id,
 						"sheds":sheds,
 						"chemical_id":chemical_id,
@@ -105,11 +105,13 @@
 						"sprayed_by":sprayed_by,
 					},
 					
-					success: function( dataType ) {
-						console.log( "Data Saved: " + dataType );
+					success: function( data ) {
+						//console.log( "Data Saved: " + data );
+						console.log("Data Saved: ".data.responseText);
 					},
-					error: function (dataType) {
-						console.log( "Error: " + dataType );
+					error: function (ts) {
+						//~ console.log( "Error: " + data );
+						alert(ts.responseText);
 					}
 				});
 			//}
@@ -120,6 +122,7 @@
 
 
 <!--Chemical trade name autocomplete function-->
+
 
             <script type="text/javascript">                
             $(document).on('focus','.autocomplete_txt',function(){
@@ -167,7 +170,7 @@
             });
             </script>
 
-<!--Display Current Time-->
+<!--Display Current Time -->
 
 <script type="text/javascript">
     function startTime() {

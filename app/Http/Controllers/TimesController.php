@@ -73,18 +73,18 @@ class TimesController extends Controller
     
     public function insertStartTime(Request $request)
     {
-		
+		$sheds = json_encode($request->sheds, JSON_PRETTY_PRINT);
 		//~ $time = new Time();
         //~ $time->start_time = $request->startTimeContainer;
         //~ $time->task_id = $request->id;
         //~ $time->save();
         //~ return redirect()->route('admin.timekeeping.index');
-        dd(Input::all());
+        //dd(Input::all());
         $time = new Time();
         $time->start_time = $request->startTimeContainer;
         $time->task_id = $request->task_id;
         $time->block_id = $request->block_id;
-        $time->sheds =  implode(',', $request->sheds);
+        $time->sheds = $sheds;
         $time->chemical_id = $request->chemical_id;
         $time->tank_capacity = $request->tank_capacity;
         $time->total_liquid = $request->total_liquid;

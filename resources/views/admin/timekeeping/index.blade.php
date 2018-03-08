@@ -85,7 +85,7 @@
             <span style="font-size: 11px">HH:MM:SS</span><br />
             <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
             </br>
-            <input type="hidden" name="startTimeContainer" id="startTimeContainer" value=""> 
+            <input type="hidden" name="startTimeContainer" id="startTimeContainer" value="{{$date}}"> 
 
 
 <!--

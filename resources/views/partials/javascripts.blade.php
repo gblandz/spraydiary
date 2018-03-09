@@ -35,7 +35,6 @@
 			//~ alert(new Date($.now()));
 			var dt = new Date();
 			var time = dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + " " +dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-			$('#stopTimeContainer').val(time);
 			$("#start_btn").show();
 			$("#stop_btn").hide(); 
 			
@@ -44,12 +43,11 @@
 			//~ var stop_time = $("#stopTimeContainer").val(metimetobesaved);
 			var start_time = $("#startTimeContainer").val();
 			var meId = $("#task_id").val();
-			var base_url = 'http://localhost'
 			var lastId = $("#lastId").val();
-
+			
 			$.ajax({
 				type: "POST",
-				url : base_url+"/spraydiary/public/insert",
+				url:"{!! URL::to('/insert') !!}",
 				dataType: 'JSON',
 				data: {
 					"_method": 'POST',
@@ -78,11 +76,11 @@
 				//~ alert("Please fill up the form");
 			//~ } else {
 				$("#stop_btn").show();
-				$("#start_btn").hide(); 
-				var dt = new Date();
-				var timetobesaved = dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + " " +dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-				$('#startTimeContainer').val(timetobesaved); 
+				$("#start_btn").hide();  
 				var token = $('meta[name="_token"]').attr('content');
+				//var timetobesaved = $("#startTimeContainer").val();
+				dt = new Date();
+				var timetobesaved = dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + " " +dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
 				var block_id = $("#block_id").val();
 				var task_id = $("#task_id").val();
 				var sheds = $("#sheds").val();
@@ -91,7 +89,6 @@
 				var total_liquid = $("#liquidtotal").val();
 				var is_fruiting = $("#is_fruiting").val();
 				var sprayed_by = $("#sprayed_by").val();
-				var base_url = 'http://localhost'
 				
 				
 				//alert(timetobesaved);
@@ -109,7 +106,7 @@
 				 //alert(sheds);
 				$.ajax({
 					type: "POST",
-					url : base_url+"/spraydiary/public/insertStartTime",
+					url:"{!! URL::to('/insertStartTime') !!}",
 					dataType: 'JSON',
 					data: {
 						"_method": 'POST',

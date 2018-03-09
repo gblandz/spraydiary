@@ -85,7 +85,7 @@
             <span style="font-size: 11px">HH:MM:SS</span><br />
             <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
             </br>
-            <input type="hidden" name="startTimeContainer" id="startTimeContainer" value="">
+            <input type="hidden" name="startTimeContainer" id="last_start_time" value="">
            
              
 
@@ -239,11 +239,11 @@
                                 <td>{{ date('d-m-Y', strtotime($time->start_time)) }} </td>
                                 <td>{{ date('H:i:s', strtotime($time->start_time)) }}</td>
                                 <td>{{ date('H:i:s', strtotime($time->end_time)) }}</td>
-<!--							
+<!--
                                {{ $duration = (strtotime($time->end_time))-(strtotime($time->start_time)) /60}}
                                {{$duration = date('H:i', $duration)}}
 -->
-                                <td>{{ $duration }}</td>
+                                <td>{{ $time->duration }}</td>
                                 <td>{{ $time->block_id }}</td>
                                 <td>{{ $time->sheds }}</td>
                                 <td>{{ $time->task->description }}</td>

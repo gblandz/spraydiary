@@ -44,6 +44,33 @@
 			var start_time = $("#startTimeContainer").val();
 			var meId = $("#task_id").val();
 			var lastId = $("#lastId").val();
+			var last_start_time = $("#last_start_time").val();
+			
+			//alert(time);
+			var timeDue = ( new Date(time) - new Date(last_start_time) ) / 1000 / 60 / 60;
+			//var decimalTimeString = "1.6578";
+			var decimalTime = parseFloat(timeDue);
+			decimalTime = decimalTime * 60 * 60;
+			var hours = Math.floor((decimalTime / (60 * 60)));
+			decimalTime = decimalTime - (hours * 60 * 60);
+			var minutes = Math.floor((decimalTime / 60));
+			decimalTime = decimalTime - (minutes * 60);
+			var seconds = Math.round(decimalTime);
+			if(hours < 10)
+			{
+				hours = "0" + hours;
+			}
+			if(minutes < 10)
+			{
+				minutes = "0" + minutes;
+			}
+			if(seconds < 10)
+			{
+				seconds = "0" + seconds;
+			}
+			timeDue = "" + hours + ":" + minutes + ":" + seconds;
+			
+			//alert(timeDue);
 			
 			$.ajax({
 				type: "POST",
@@ -56,6 +83,7 @@
 					"startTimeContainer": start_time,
 					"id": meId,
 					"lastId":lastId,
+					"timeDue":timeDue,
 				},
 				
 				success: function( response ) {
@@ -70,7 +98,7 @@
 		});
 		
 		
-		$("#start_btn").click(function(){
+		$("#start_btn").click(function(event){
 
 			//~ if($(".required").val() == "") {
 				//~ alert("Please fill up the form");
@@ -90,8 +118,9 @@
 				var is_fruiting = $("#is_fruiting").val();
 				var sprayed_by = $("#sprayed_by").val();
 				
+			
 				
-				//alert(timetobesaved);
+				//alert(begintime);
 				// make all fields read-only
 				$('#task_id').attr('disabled',true);
 				$('#block_id').attr('disabled',true);
@@ -127,6 +156,8 @@
 						//alert("Data Saved: ".ts.responseText);
 						var data = response.msg; // separate them, messages does in data
 						var last_id = response.last_insert_id; // last_id has the last insert id
+						var start_time = response.last_start_time; // last_id has the last start time
+						$('#last_start_time').val(start_time);
 						$('#lastId').val(last_id);
 					},
 					error: function (ts) {

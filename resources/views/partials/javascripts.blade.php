@@ -79,7 +79,7 @@
 				$("#start_btn").hide();  
 				var token = $('meta[name="_token"]').attr('content');
 				//var timetobesaved = $("#startTimeContainer").val();
-				dt = new Date();
+				var dt = new Date();
 				var timetobesaved = dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + " " +dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
 				var block_id = $("#block_id").val();
 				var task_id = $("#task_id").val();

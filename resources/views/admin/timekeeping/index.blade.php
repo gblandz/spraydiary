@@ -94,13 +94,13 @@
             {{ Form::button('Start', array('class' => 'btn btn-success', 'type' => 'button', 'onclick' => 'startTimer()', 'id' => 'start_btn')) }}
 -->
 
-           <button type="button" class="btn btn btn-success" onclick="startTimer()" id="start_btn">Start</button>
+           <button type="button" class="bt btn-success btn-lg" onclick="startTimer()" id="start_btn">Start</button>
 <!--
             {{ Form::button('Stop', array('class' => 'btn btn-danger', 'type' => 'submit', 'onclick' => 'stopTimer()', 'id' => 'stop_btn')) }}
 -->
             <input type="hidden" name="stopTimeContainer" id="lastId" value=""> 
 
-           <button type="button" class="btn btn btn-danger" onclick="stopTimer()" id="stop_btn">Stop</button>
+           <button type="button" class="btn btn-danger btn-lg" onclick="stopTimer()" id="stop_btn">Stop</button>
 
             </br>
             <label id="totalTime">
@@ -217,10 +217,12 @@
     </div>
 
 </div>    
-    <div class="panel panel-default">
-        <div class="panel-heading">Time Logs</div>
-        <div class="panel-body table-responsive">
-            <table class="dataTable display compact">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Time Logs</h3>
+        </div>
+        <div class="box-body table-responsive no-padding">
+            <table class="table table-condensed">
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -251,6 +253,7 @@
                         @endforeach                  
                 </tbody>
             </table>
+        </div>
         </div>
     </div>
 

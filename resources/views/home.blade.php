@@ -15,27 +15,27 @@
 <div class="container-fluid" align="center">
 <div class="row">
     <div class="col-md-2 col-xs-4">
-<a class="btn btn-app"><i class="fa fa-clock-o"></i> Timekeeping</a>
+<a class="btn btn-app" href="{{ url('admin/timekeeping') }}"><i class="fa fa-clock-o"></i> Timekeeping</a>
 </div>
 
 <div class="col-md-2 col-xs-4">
-<a class="btn btn-app"><i class="fa fa-folder-open"></i> Reports</a>
+<a class="btn btn-app" href="{{ url('admin/reports') }}"><i class="fa fa-folder-open"></i> Reports</a>
 </div>
 
 <div class="col-md-2 col-xs-4">
-<a class="btn btn-app"><i class="fa fa-tasks"></i> Tasks</a>
+<a class="btn btn-app" href="{{ url('admin/tasks') }}"><i class="fa fa-tasks"></i> Tasks</a>
 </div>
 
 <div class="col-md-2 col-xs-4">
-<a class="btn btn-app"><i class="fa fa-flask"></i> Chemicals</a>
+<a class="btn btn-app" href="{{ url('admin/chemicals') }}"><i class="fa fa-flask"></i> Chemicals</a>
 </div>
 
 <div class="col-md-2 col-xs-4">
-<a class="btn btn-app"><i class="fa fa-th-large"></i> Greenhouse</a>
+<a class="btn btn-app" href="{{ url('admin/greenhouse') }}"><i class="fa fa-th-large"></i> Greenhouse</a>
 </div>
 
 <div class="col-md-2 col-xs-4">
-<a class="btn btn-app"><i class="fa fa-users"></i> Users</a>
+<a class="btn btn-app" href="{{ url('admin/users') }}"><i class="fa fa-users"></i> Users</a>
 </div>
 
 </div>

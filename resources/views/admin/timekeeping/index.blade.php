@@ -244,7 +244,7 @@
                                {{$duration = date('H:i', $duration)}}
 -->
                                 <td>{{ $time->duration }}</td>
-                                <td>{{ $time->block_id }}</td>
+                                <td>{{ $time->block->block_name }}</td>
                                 <td>{{ $time->sheds }}</td>
                                 <td>{{ $time->task->description }}</td>
                             </tr>

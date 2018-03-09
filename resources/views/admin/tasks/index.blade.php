@@ -11,7 +11,7 @@
             @lang('global.app_list')
             </div>
             <div class="panel-body table-responsive">    
-                <table class="dataTable display compact cell-border">
+                <table class="compact datatable">
                     <thead><tr>
                         <th>Name</th>
                         <th>Assigned User</th>

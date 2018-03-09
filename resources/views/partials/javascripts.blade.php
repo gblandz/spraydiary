@@ -35,6 +35,7 @@
 			//~ alert(new Date($.now()));
 			var dt = new Date();
 			var time = dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + " " +dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+			$('#stopTimeContainer').val(time);
 			$("#start_btn").show();
 			$("#stop_btn").hide(); 
 			var metoken = $('meta[name="_token"]').attr('content');
@@ -42,9 +43,10 @@
 			//~ var stop_time = $("#stopTimeContainer").val(metimetobesaved);
 			var start_time = $("#startTimeContainer").val();
 			var meId = $("#task_id").val();
+			var base_url = 'http://localhost'
 			$.ajax({
 				type: "POST",
-				url:"{!! URL::to('/insert') !!}",
+				url : base_url+"/spraydiary/public/insert",
 				dataType: 'JSON',
 				data: {
 					"_method": 'POST',
@@ -72,9 +74,11 @@
 				//~ alert("Please fill up the form");
 			//~ } else {
 				$("#stop_btn").show();
-				$("#start_btn").hide();  
+				$("#start_btn").hide(); 
+				var dt = new Date();
+				var timetobesaved = dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + " " +dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+				$('#startTimeContainer').val(timetobesaved); 
 				var token = $('meta[name="_token"]').attr('content');
-				var timetobesaved = $("#startTimeContainer").val();
 				var block_id = $("#block_id").val();
 				var task_id = $("#task_id").val();
 				var sheds = $("#sheds").val();
@@ -83,6 +87,7 @@
 				var total_liquid = $("#liquidtotal").val();
 				var is_fruiting = $("#is_fruiting").val();
 				var sprayed_by = $("#sprayed_by").val();
+				var base_url = 'http://localhost'
 				
 				// make all fields read-only
 				$('#task_id').attr('disabled',true);
@@ -98,7 +103,7 @@
 				 //alert(sheds);
 				$.ajax({
 					type: "POST",
-					url:"{!! URL::to('/insertStartTime') !!}",
+					url : base_url+"/spraydiary/public/insertStartTime",
 					dataType: 'JSON',
 					data: {
 						"_method": 'POST',
@@ -116,11 +121,11 @@
 					
 					success: function( data ) {
 						//console.log( "Data Saved: " + data );
-						console.log("Data Saved: ".data.responseText);
+						alert("Data Saved: ".data.responseText);
 					},
 					error: function (ts) {
 						//~ console.log( "Error: " + data );
-						console.log(ts.responseText);
+						alert("Error:" + ts.responseText);
 					}
 				});
 			//}

@@ -11,12 +11,12 @@
             
             <p><strong>Select Details for Recording:</strong></p>
 
-<!--
+
             {!! Form::open(['action' => 'TimesController@insertStartTime']) !!}
--->	
-<!--
-			<input type="text" name="token" id="token" value={{csrf_token()}} >
--->
+	
+
+			<meta name="_token" content="{{ csrf_token() }}"/>
+
             {!! Form::label('task_id', 'Select Task:', ['class' => 'control-label']) !!}
             {!! Form::select('task_id', $tasks, null, ['class' => 'form-control','id'=>'task_id']) !!}
             {!! Form::label('block_id', 'Select Block:', ['class' => 'control-label']) !!}
@@ -85,7 +85,7 @@
             <span style="font-size: 11px">HH:MM:SS</span><br />
             <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
             </br>
-            <input type="hidden" name="startTimeContainer" id="startTimeContainer" value="{{$date}}"> 
+            <input type="hidden" name="startTimeContainer" id="startTimeContainer" value=""> 
 
 
 <!--

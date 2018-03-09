@@ -36,8 +36,8 @@ class TimesController extends Controller
 		//~ $duration = round(abs($to_time - $from_time) / 60,2). " minute";
 		$start_time = strtotime(DB::table('times')->pluck('start_time'));
 		$end_time = strtotime(DB::table('times')->pluck('end_time'));
-		//$duration = $start_time->diff($end_time);
-		$duration =  round(abs($end_time - $start_time) / 60,2);
+		$diff = $end_time - $start_time;
+		$duration =  date('H:i:s', $diff);
         
         $user = Auth::user();
         return view('admin.timekeeping.index',compact('times', 'tasks', 'blocks', 'sheds', 'chemicals', 'user','date','duration'));

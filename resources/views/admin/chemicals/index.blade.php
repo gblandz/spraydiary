@@ -63,4 +63,15 @@
     </div>
 @stop
 
+@section('javascript')
+<script type="text/javascript">
+    $(document).ready(function() {
+    $('#example').dataTable( {
+    "aLengthMenu": [[25, 50, 75, -1], [25, 50, 75, "All"]],
+    "pageLength": 25
+    } );
+} );
+</script>
+
+@endsection
 

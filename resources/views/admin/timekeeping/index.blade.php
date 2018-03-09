@@ -56,7 +56,7 @@
                 '1000' => '1000',
                 '1500' => '1500',
                 '2000' => '2000',
-                ], null, ['placeholder' => 'Select Capacity...', 'class' => 'form-control', 'required' => '','id'=>'tank_capacity']) !!}
+                ], null, ['placeholder' => 'Select Capacity...', 'class' => 'form-control select2', 'required' => '','id'=>'tank_capacity']) !!}
             </div>
             <div class="col-md-3 col-xs-6">
             {!! Form::label('total_liquid', 'Total Liquid', ['class' => 'control-label']) !!}        

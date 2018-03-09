@@ -38,12 +38,15 @@
 			$('#stopTimeContainer').val(time);
 			$("#start_btn").show();
 			$("#stop_btn").hide(); 
+			
 			var metoken = $('meta[name="_token"]').attr('content');
 			//~ var metimetobesaved = moment().format('YYYY-MM-DD hh:mm:ss');
 			//~ var stop_time = $("#stopTimeContainer").val(metimetobesaved);
 			var start_time = $("#startTimeContainer").val();
 			var meId = $("#task_id").val();
 			var base_url = 'http://localhost'
+			var lastId = $("#lastId").val();
+
 			$.ajax({
 				type: "POST",
 				url : base_url+"/spraydiary/public/insert",
@@ -54,10 +57,11 @@
 					"stopTimeContainer": time,
 					"startTimeContainer": start_time,
 					"id": meId,
+					"lastId":lastId,
 				},
 				
-				success: function( dataType ) {
-					console.log( "Data Saved: " + dataType );
+				success: function( response ) {
+					console.log( "Data Saved: " + responseText );
 					 location.reload();
 				},
 				error: function (ts) {
@@ -89,6 +93,8 @@
 				var sprayed_by = $("#sprayed_by").val();
 				var base_url = 'http://localhost'
 				
+				
+				//alert(timetobesaved);
 				// make all fields read-only
 				$('#task_id').attr('disabled',true);
 				$('#block_id').attr('disabled',true);
@@ -119,13 +125,16 @@
 						"sprayed_by":sprayed_by,
 					},
 					
-					success: function( data ) {
+					success: function( response ) {
 						//console.log( "Data Saved: " + data );
-						alert("Data Saved: ".data.responseText);
+						//alert("Data Saved: ".ts.responseText);
+						var data = response.msg; // separate them, messages does in data
+						var last_id = response.last_insert_id; // last_id has the last insert id
+						$('#lastId').val(last_id);
 					},
 					error: function (ts) {
 						//~ console.log( "Error: " + data );
-						alert("Error:" + ts.responseText);
+						alert(ts.responseText);
 					}
 				});
 			//}

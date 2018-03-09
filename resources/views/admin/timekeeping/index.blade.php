@@ -85,9 +85,8 @@
             <span style="font-size: 11px">HH:MM:SS</span><br />
             <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
             </br>
-            <input type="hidden" name="startTimeContainer" id="startTimeContainer" value=""> 
 
-
+            <input type="hidden" name="startTimeContainer" id="startTimeContainer" value="">
 <!--
             {{ Form::button('Start', array('class' => 'btn btn-success', 'type' => 'button', 'onclick' => 'startTimer()', 'id' => 'start_btn')) }}
 -->
@@ -96,7 +95,8 @@
 <!--
             {{ Form::button('Stop', array('class' => 'btn btn-danger', 'type' => 'submit', 'onclick' => 'stopTimer()', 'id' => 'stop_btn')) }}
 -->
-            <input type="hidden" name="stopTimeContainer" id="stopTimeContainer" value=""> 
+            <input type="hidden" name="stopTimeContainer" id="lastId" value=""> 
+
            <button type="button" class="btn btn btn-danger" onclick="stopTimer()" id="stop_btn">Stop</button>
 
             </br>
@@ -232,6 +232,7 @@
                 <tbody>
                          @foreach ($times as $time)
                             <tr>
+								
                                 <td>{{ date('d-m-Y', strtotime($time->start_time)) }} </td>
                                 <td>{{ date('H:i:s', strtotime($time->start_time)) }}</td>
                                 <td>{{ date('H:i:s', strtotime($time->end_time)) }}</td>

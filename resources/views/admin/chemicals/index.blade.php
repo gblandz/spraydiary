@@ -13,7 +13,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($chemicals) > 0 ? 'datatable' : '' }} dt-select">
+            <table class="compact table table-bordered table-striped {{ count($chemicals) > 0 ? 'datatable' : '' }} dt-select">
                 <thead>
                     <tr>
                         <th style="text-align:center;"><input type="checkbox" id="select-all" /></th>

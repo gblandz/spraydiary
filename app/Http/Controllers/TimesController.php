@@ -73,7 +73,9 @@ class TimesController extends Controller
     
     public function insertStartTime(Request $request)
     {
-		$sheds = json_encode($request->sheds, JSON_PRETTY_PRINT);
+		$sheds = json_encode($request->sheds);
+		$sheds = trim($sheds, '[]');
+		//$sheds = str_replace("\n","", $sheds);
 		//~ $time = new Time();
         //~ $time->start_time = $request->startTimeContainer;
         //~ $time->task_id = $request->id;
@@ -92,7 +94,10 @@ class TimesController extends Controller
         $time->sprayed_by = Auth::id();
         
         $time->save();
-        return redirect()->route('admin.timekeeping.index');
+        $insertedId = $time->id;
+        //return $insertedId;
+       //return redirect()->route('admin.timekeeping.index','insertedId');
+       return Response::json(array('success' => true, 'last_insert_id' => $time->id), 200);
     }
 
 
@@ -112,12 +117,10 @@ class TimesController extends Controller
         
          $startTimeContainer = $request->startTimeContainer;
          $stopTimeContainer = $request->stopTimeContainer;
+         $lastId = $request->lastId;
 
-         DB::table('times')->where('start_time',$startTimeContainer)->update(['end_time'=>$stopTimeContainer]);
+         DB::table('times')->where('id',$lastId)->update(['end_time'=>$stopTimeContainer]);
          return redirect()->route('admin.timekeeping.index');
-		
-		//$time->save();
-        return redirect()->route('admin.timekeeping.index');
     }
 
 

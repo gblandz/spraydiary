@@ -34,8 +34,8 @@ $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 $this->post('password/reset', 'Auth\ResetPasswordController@reset')->name('auth.password.reset');
 
 //Timekeeping save route
-Route::post('/insert','TimesController@insert');
-Route::post('/insertStartTime','TimesController@insertStartTime');
+Route::post('/stoptime','TimesController@stopTime');
+Route::post('/starttime','TimesController@startTime');
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/home', 'HomeController@index');

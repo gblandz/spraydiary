@@ -1,22 +1,11 @@
 @extends('layouts.app')
 @section('content')
-    <h3 class="page-title">@lang('global.times.title')</h3>
-    
-
+<h3 class="page-title">@lang('global.times.title')</h3>
 <div class="row">
-
     <div class="col-md-8">
         <div class="box box-primary">
-        <div class="box-header with-border">
-            
+        <div class="box-header with-border">            
             <p><strong>Select Details for Recording:</strong></p>
-
-<!--
-            {!! Form::open(['action' => 'TimesController@insertStartTime']) !!}
--->	
-<!--
-			<input type="text" name="token" id="token" value={{csrf_token()}} >
--->
             {!! Form::label('task_id', 'Select Task:', ['class' => 'control-label']) !!}
             {!! Form::select('task_id', $tasks, null, ['class' => 'form-control','id'=>'task_id']) !!}
             {!! Form::label('block_id', 'Select Block:', ['class' => 'control-label']) !!}
@@ -69,13 +58,11 @@
             <div class="col-md-3 col-xs-6">
             {!! Form::label('sprayed_by', 'Sprayed By:', ['class' => 'control-label']) !!}        
             {!! Form::text('sprayed_by', $user->name, ['class'=>'form-control', 'disabled','id'=>'sprayed_by']) !!}
-        </br>
-           
+            </br>           
             </div>             
         </div>
-        </div>
     </div>
-
+</div>
 <div class="col-md-4">
     <div class="box box-primary">
         <div class="box-header with-border">
@@ -86,31 +73,14 @@
             <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
             </br>
             <input type="hidden" name="startTimeContainer" id="last_start_time" value="">
-           
-             
-
-
-<!--
-            {{ Form::button('Start', array('class' => 'btn btn-success', 'type' => 'button', 'onclick' => 'startTimer()', 'id' => 'start_btn')) }}
--->
-
-           <button type="button" class="bt btn-success btn-lg" onclick="startTimer()" id="start_btn">Start</button>
-<!--
-            {{ Form::button('Stop', array('class' => 'btn btn-danger', 'type' => 'submit', 'onclick' => 'stopTimer()', 'id' => 'stop_btn')) }}
--->
-            <input type="hidden" name="stopTimeContainer" id="lastId" value=""> 
-
-           <button type="button" class="btn btn-danger btn-lg" onclick="stopTimer()" id="stop_btn">Stop</button>
-
+            <button type="button" class="bt btn-success btn-lg" onclick="startTimer()" id="start_btn">Start</button>
+            <input type="hidden" name="stopTimeContainer" id="lastId" value="">
+            <button type="button" class="btn btn-danger btn-lg" onclick="stopTimer()" id="stop_btn">Stop</button>
             </br>
             <label id="totalTime">
-
             </label>
-            {!! Form::close() !!}
         </div>
-
-        </br>
-
+            </br>
         </div>
     </div>
     </br>
@@ -129,6 +99,7 @@
         });
     </script>
 
+<!-- Timer function -->
 
     <script type="text/javascript">
 
@@ -236,15 +207,10 @@
                 </thead>                
                 <tbody>
                          @foreach ($times as $time)
-                            <tr>
-								
-                                <td>{{ date('d-m-Y', strtotime($time->start_time)) }} </td>
+                            <tr>								
+                                <td>{{ date('d-m-Y', strtotime($time->created_at)) }} </td>
                                 <td>{{ date('H:i:s', strtotime($time->start_time)) }}</td>
                                 <td>{{ date('H:i:s', strtotime($time->end_time)) }}</td>
-<!--
-                               {{ $duration = (strtotime($time->end_time))-(strtotime($time->start_time)) /60}}
-                               {{$duration = date('H:i', $duration)}}
--->
                                 <td>{{ $time->duration }}</td>
                                 <td>{{ $time->block->block_name }}</td>
                                 <td>{{ $time->sheds }}</td>

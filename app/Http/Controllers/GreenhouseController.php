@@ -19,6 +19,10 @@ class GreenhouseController extends Controller
      */
     public function index()
     {
+        if (! Gate::allows('users_manage')) {
+            return abort(401, 'Access Denied.');
+        }
+
         $blocks = Block::all();
         $sheds = Shed::all();
         return view('admin.greenhouse.index',compact('blocks', 'sheds'));
@@ -31,6 +35,10 @@ class GreenhouseController extends Controller
      */
     public function create()
     {
+        if (! Gate::allows('users_manage')) {
+            return abort(401, 'Access Denied.');
+        }
+
         return view('admin.greenhouse.index');
     }
 
@@ -42,6 +50,10 @@ class GreenhouseController extends Controller
      */
     public function storeBlock(Request $request)
     {
+        if (! Gate::allows('users_manage')) {
+            return abort(401, 'Access Denied.');
+        }
+
         $block = $request->input('block_name');
         DB::insert('insert into blocks (block_name) values(?)',[$block]);
         return redirect()->route('admin.greenhouse.index');
@@ -49,6 +61,10 @@ class GreenhouseController extends Controller
 
     public function storeShed(Request $request)
     {
+        if (! Gate::allows('users_manage')) {
+            return abort(401, 'Access Denied.');
+        }
+
         $shed = $request->input('shed_name');
         DB::insert('insert into sheds (shed_name) values(?)',[$shed]);
         return redirect()->route('admin.greenhouse.index');
@@ -74,7 +90,7 @@ class GreenhouseController extends Controller
     public function editBlock($id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $block = Block::find($id);
         return view('admin.greenhouse.editblock', compact('block'));
@@ -83,7 +99,7 @@ class GreenhouseController extends Controller
     public function editShed($id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $shed = Shed::find($id);
         return view('admin.greenhouse.editshed', compact('shed'));
@@ -99,7 +115,7 @@ class GreenhouseController extends Controller
     public function updateBlock(Request $request, $id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
 
         $block = Block::findOrFail($id);
@@ -111,7 +127,7 @@ class GreenhouseController extends Controller
     public function updateShed(Request $request, $id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $shed = Shed::findOrFail($id);
         $shed->update($request->all());
@@ -128,7 +144,7 @@ class GreenhouseController extends Controller
     public function destroyBlock($id)
     {
          if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $block = Block::findOrFail($id);
         $block->delete();
@@ -139,7 +155,7 @@ class GreenhouseController extends Controller
     public function destroyShed($id)
     {
          if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $shed = Shed::findOrFail($id);
         $shed->delete();

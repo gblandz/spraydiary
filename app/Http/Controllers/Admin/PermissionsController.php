@@ -19,7 +19,7 @@ class PermissionsController extends Controller
     public function index()
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
 
         $permissions = Permission::all();
@@ -35,7 +35,7 @@ class PermissionsController extends Controller
     public function create()
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         return view('admin.permissions.create');
     }
@@ -49,7 +49,7 @@ class PermissionsController extends Controller
     public function store(StorePermissionsRequest $request)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         Permission::create($request->all());
 
@@ -66,7 +66,7 @@ class PermissionsController extends Controller
     public function edit($id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $permission = Permission::findOrFail($id);
 
@@ -83,7 +83,7 @@ class PermissionsController extends Controller
     public function update(UpdatePermissionsRequest $request, $id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $permission = Permission::findOrFail($id);
         $permission->update($request->all());
@@ -101,7 +101,7 @@ class PermissionsController extends Controller
     public function destroy($id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $permission = Permission::findOrFail($id);
         $permission->delete();
@@ -117,7 +117,7 @@ class PermissionsController extends Controller
     public function massDestroy(Request $request)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         if ($request->input('ids')) {
             $entries = Permission::whereIn('id', $request->input('ids'))->get();

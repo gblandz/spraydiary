@@ -23,10 +23,10 @@ class CreateTimesTable extends Migration
             $table->integer('total_liquid');
             $table->integer('sprayed_by')->unsigned();
             $table->string('is_fruiting');
-            $table->string('audit_check');
+            $table->string('audit_check')->nullable();
             $table->time('start_time')->nullable();
             $table->time('end_time')->nullable();
-            $table->time('duration');
+            $table->time('duration')->nullable();
             $table->timestamps();
         });
 

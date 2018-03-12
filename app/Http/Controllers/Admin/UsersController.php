@@ -20,7 +20,7 @@ class UsersController extends Controller
     public function index()
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
 
         $users = User::all();
@@ -36,7 +36,7 @@ class UsersController extends Controller
     public function create()
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $roles = Role::get()->pluck('name', 'name');
 
@@ -52,7 +52,7 @@ class UsersController extends Controller
     public function store(StoreUsersRequest $request)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $user = User::create($request->all());
         $roles = $request->input('roles') ? $request->input('roles') : [];
@@ -71,7 +71,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $roles = Role::get()->pluck('name', 'name');
 
@@ -90,7 +90,7 @@ class UsersController extends Controller
     public function update(UpdateUsersRequest $request, $id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $user = User::findOrFail($id);
         $user->update($request->all());
@@ -109,7 +109,7 @@ class UsersController extends Controller
     public function destroy($id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $user = User::findOrFail($id);
         $user->delete();
@@ -125,7 +125,7 @@ class UsersController extends Controller
     public function massDestroy(Request $request)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         if ($request->input('ids')) {
             $entries = User::whereIn('id', $request->input('ids'))->get();

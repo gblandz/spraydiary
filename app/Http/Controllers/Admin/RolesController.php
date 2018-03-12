@@ -20,7 +20,7 @@ class RolesController extends Controller
     public function index()
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
 
         $roles = Role::all();
@@ -36,7 +36,7 @@ class RolesController extends Controller
     public function create()
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $permissions = Permission::get()->pluck('name', 'name');
 
@@ -52,7 +52,7 @@ class RolesController extends Controller
     public function store(StoreRolesRequest $request)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $role = Role::create($request->except('permission'));
         $permissions = $request->input('permission') ? $request->input('permission') : [];
@@ -71,7 +71,7 @@ class RolesController extends Controller
     public function edit($id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $permissions = Permission::get()->pluck('name', 'name');
 
@@ -90,7 +90,7 @@ class RolesController extends Controller
     public function update(UpdateRolesRequest $request, $id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $role = Role::findOrFail($id);
         $role->update($request->except('permission'));
@@ -110,7 +110,7 @@ class RolesController extends Controller
     public function destroy($id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $role = Role::findOrFail($id);
         $role->delete();
@@ -126,7 +126,7 @@ class RolesController extends Controller
     public function massDestroy(Request $request)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         if ($request->input('ids')) {
             $entries = Role::whereIn('id', $request->input('ids'))->get();

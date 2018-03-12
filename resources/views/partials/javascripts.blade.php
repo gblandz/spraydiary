@@ -27,27 +27,43 @@
 <!--Timer-->
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		
-		$("#stop_btn").hide(); 
-		
+	$(document).ready(function(){		
+		$("#stop_btn").hide();		
 		$("#stop_btn").click(function(){
-			//~ alert(new Date($.now()));
 			var dt = new Date();
 			var time = dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + " " +dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
 			$("#start_btn").show();
 			$("#stop_btn").hide(); 
-			
 			var metoken = $('meta[name="_token"]').attr('content');
-			//~ var metimetobesaved = moment().format('YYYY-MM-DD hh:mm:ss');
-			//~ var stop_time = $("#stopTimeContainer").val(metimetobesaved);
 			var start_time = $("#startTimeContainer").val();
 			var meId = $("#task_id").val();
 			var lastId = $("#lastId").val();
-			
+			var last_start_time = $("#last_start_time").val();
+			var timeDue = ( new Date(time) - new Date(last_start_time) ) / 1000 / 60 / 60;
+			var decimalTime = parseFloat(timeDue);
+			decimalTime = decimalTime * 60 * 60;
+			var hours = Math.floor((decimalTime / (60 * 60)));
+			decimalTime = decimalTime - (hours * 60 * 60);
+			var minutes = Math.floor((decimalTime / 60));
+			decimalTime = decimalTime - (minutes * 60);
+			var seconds = Math.round(decimalTime);
+			if(hours < 10)
+			{
+				hours = "0" + hours;
+			}
+			if(minutes < 10)
+			{
+				minutes = "0" + minutes;
+			}
+			if(seconds < 10)
+			{
+				seconds = "0" + seconds;
+			}
+			timeDue = "" + hours + ":" + minutes + ":" + seconds;
+						
 			$.ajax({
 				type: "POST",
-				url:"{!! URL::to('/insert') !!}",
+				url:"{!! URL::to('/stoptime') !!}",
 				dataType: 'JSON',
 				data: {
 					"_method": 'POST',
@@ -56,6 +72,7 @@
 					"startTimeContainer": start_time,
 					"id": meId,
 					"lastId":lastId,
+					"timeDue":timeDue,
 				},
 				
 				success: function( response ) {
@@ -70,15 +87,10 @@
 		});
 		
 		
-		$("#start_btn").click(function(){
-
-			//~ if($(".required").val() == "") {
-				//~ alert("Please fill up the form");
-			//~ } else {
+		$("#start_btn").click(function(event){
 				$("#stop_btn").show();
 				$("#start_btn").hide();  
 				var token = $('meta[name="_token"]').attr('content');
-				//var timetobesaved = $("#startTimeContainer").val();
 				var dt = new Date();
 				var timetobesaved = dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + " " +dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
 				var block_id = $("#block_id").val();
@@ -90,8 +102,6 @@
 				var is_fruiting = $("#is_fruiting").val();
 				var sprayed_by = $("#sprayed_by").val();
 				
-				
-				//alert(timetobesaved);
 				// make all fields read-only
 				$('#task_id').attr('disabled',true);
 				$('#block_id').attr('disabled',true);
@@ -103,10 +113,9 @@
 				$('#sprayed_by').attr('disabled',true);
 				$('#trade_name_1').attr('disabled',true);
 				
-				 //alert(sheds);
 				$.ajax({
 					type: "POST",
-					url:"{!! URL::to('/insertStartTime') !!}",
+					url:"{!! URL::to('/starttime') !!}",
 					dataType: 'JSON',
 					data: {
 						"_method": 'POST',
@@ -123,19 +132,16 @@
 					},
 					
 					success: function( response ) {
-						//console.log( "Data Saved: " + data );
-						//alert("Data Saved: ".ts.responseText);
 						var data = response.msg; // separate them, messages does in data
 						var last_id = response.last_insert_id; // last_id has the last insert id
+						var start_time = response.last_start_time; // last_id has the last start time
+						$('#last_start_time').val(start_time);
 						$('#lastId').val(last_id);
 					},
 					error: function (ts) {
-						//~ console.log( "Error: " + data );
 						alert(ts.responseText);
 					}
-				});
-			//}
-			
+				});			
 		});
 	});
 </script>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -31,16 +32,10 @@ class TimesController extends Controller
         $blocks = Block::pluck('block_name', 'id');
         $sheds = Shed::pluck('shed_name', 'id');
         $chemicals = Chemical::pluck('trade_name', 'id');
-		//~ $to_time = strtotime("2008-12-13 10:42:00");
-		//~ $from_time = strtotime("2008-12-13 10:21:00");
-		//~ $duration = round(abs($to_time - $from_time) / 60,2). " minute";
 		$start_time = strtotime(DB::table('times')->pluck('start_time'));
-		$end_time = strtotime(DB::table('times')->pluck('end_time'));
-		//$duration = $start_time->diff($end_time);
-		$duration =  round(abs($end_time - $start_time) / 60,2);
-        
+		$end_time = strtotime(DB::table('times')->pluck('end_time'));		
         $user = Auth::user();
-        return view('admin.timekeeping.index',compact('times', 'tasks', 'blocks', 'sheds', 'chemicals', 'user','date','duration'));
+        return view('admin.timekeeping.index',compact('times', 'tasks', 'blocks', 'sheds', 'chemicals', 'user','date'));
     }
 
     /**
@@ -61,26 +56,13 @@ class TimesController extends Controller
      */
     public function store(Request $request)
     {
-		$time = new Time();
-        $time->start_time = $request->startTimeContainer;
-        $time->task_id = $request->myId;
-        $time->save();
-        return redirect()->route('admin.timekeeping.index');
-    }
+		//
+    }   
     
-    
-    
-    public function insertStartTime(Request $request)
+    public function startTime(Request $request)
     {
 		$sheds = json_encode($request->sheds);
-		$sheds = trim($sheds, '[]');
-		//$sheds = str_replace("\n","", $sheds);
-		//~ $time = new Time();
-        //~ $time->start_time = $request->startTimeContainer;
-        //~ $time->task_id = $request->id;
-        //~ $time->save();
-        //~ return redirect()->route('admin.timekeeping.index');
-        //dd(Input::all());
+		$sheds = trim($sheds, '[]');        
         $time = new Time();
         $time->start_time = $request->startTimeContainer;
         $time->task_id = $request->task_id;
@@ -90,39 +72,22 @@ class TimesController extends Controller
         $time->tank_capacity = $request->tank_capacity;
         $time->total_liquid = $request->total_liquid;
         $time->is_fruiting = $request->is_fruiting;
-        $time->sprayed_by = Auth::id();
-        
+        $time->sprayed_by = Auth::id();        
         $time->save();
         $insertedId = $time->id;
-        //return $insertedId;
-       //return redirect()->route('admin.timekeeping.index','insertedId');
-       return Response::json(array('success' => true, 'last_insert_id' => $time->id), 200);
+        return Response::json(array('success' => true, 'last_insert_id' => $time->id, 'last_start_time'=>$time->start_time), 200);
     }
 
-
-
-     //~ public function insert(Request $request)
-    //~ {
-         //~ $time = new Time();
-         //~ $startTimeContainer = $request->startTimeContainer;
-         //~ $stopTimeContainer = $request->stopTimeContainer;
-        // DB::table('times')->where('start_time',$startTimeContainer)->update(['end_time'=>$stopTimeContainer]);
-
-     public function insert(Request $request)
+     public function stopTime(Request $request)
     {
-         //dd(Input::all()); 
-        // $time = new Time();
-         $time = new Time();
-        
-         $startTimeContainer = $request->startTimeContainer;
-         $stopTimeContainer = $request->stopTimeContainer;
-         $lastId = $request->lastId;
-
-         DB::table('times')->where('id',$lastId)->update(['end_time'=>$stopTimeContainer]);
-         return redirect()->route('admin.timekeeping.index');
+        $time = new Time();
+        $startTimeContainer = $request->startTimeContainer;
+        $stopTimeContainer = $request->stopTimeContainer;
+        $lastId = $request->lastId;
+        $duration = $request->timeDue;
+        DB::table('times')->where('id',$lastId)->update(['end_time'=>$stopTimeContainer,'duration'=>$duration]);
+        return redirect()->route('admin.timekeeping.index');
     }
-
-
 
     /**
      * Display the specified resource.

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Time extends Model
 {
-	public $timestamps = false;
     public function task()
     {
     	return $this->belongsTo(Task::class);

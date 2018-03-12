@@ -16,6 +16,10 @@ class ChemicalsController extends Controller
      */
     public function index()
     {
+        if (! Gate::allows('users_manage')) {
+            return abort(401, 'Access Denied.');
+        }
+
 		$chemicals = Chemical::all();
         return view('admin.chemicals.index', compact('chemicals'));
     }
@@ -27,6 +31,10 @@ class ChemicalsController extends Controller
      */
     public function create()
     {
+        if (! Gate::allows('users_manage')) {
+            return abort(401, 'Access Denied.');
+        }
+
         $chemSelect = DB::table('chemtypes')->pluck('name','id');
         return view('admin.chemicals.create', compact('chemSelect'));
     }
@@ -39,6 +47,10 @@ class ChemicalsController extends Controller
      */
     public function store(Request $request)
     {
+        if (! Gate::allows('users_manage')) {
+            return abort(401, 'Access Denied.');
+        }
+
         $chemical = new Chemical();
         $chemical->chem_type = $request->chem_type;
         $chemical->trade_name = $request->trade_name;
@@ -70,7 +82,7 @@ class ChemicalsController extends Controller
     public function edit($id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $chemical = Chemical::find($id);
 
@@ -87,7 +99,7 @@ class ChemicalsController extends Controller
     public function update(Request $request, $id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $chemical = Chemical::findOrFail($id);
         $chemical->update($request->all());
@@ -104,7 +116,7 @@ class ChemicalsController extends Controller
     public function destroy($id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $chemical = Chemical::findOrFail($id);
         $chemical->delete();

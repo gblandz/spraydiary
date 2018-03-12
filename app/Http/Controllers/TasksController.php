@@ -17,6 +17,10 @@ class TasksController extends Controller
      */
     public function index()
     {
+        if (! Gate::allows('users_manage')) {
+            return abort(401, 'Access Denied.');
+        }
+
         $tasks = Task::all();
         $users = User::all();
         return view('admin.tasks.index',compact('tasks', 'users'));
@@ -29,6 +33,10 @@ class TasksController extends Controller
      */
     public function create()
     {
+        if (! Gate::allows('users_manage')) {
+            return abort(401, 'Access Denied.');
+        }
+
         $userSelect = User::pluck('name', 'id');
         return view('admin.tasks.create', compact('userSelect'));
     }
@@ -41,6 +49,10 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
+        if (! Gate::allows('users_manage')) {
+            return abort(401, 'Access Denied.');
+        }
+
         $task = new Task();
         $task->description = $request->description;
         $task->user_id = $request->id;
@@ -68,7 +80,7 @@ class TasksController extends Controller
     public function edit($id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $task = Task::find($id);
         $userSelect = User::pluck('name', 'id');
@@ -86,7 +98,7 @@ class TasksController extends Controller
     public function update(Request $request, $id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $task = Task::findOrFail($id);
         $task->update($request->all());
@@ -103,7 +115,7 @@ class TasksController extends Controller
     public function destroy($id)
     {
         if (! Gate::allows('users_manage')) {
-            return abort(401);
+            return abort(401, 'Access Denied.');
         }
         $task = Task::findOrFail($id);
         $task->delete();

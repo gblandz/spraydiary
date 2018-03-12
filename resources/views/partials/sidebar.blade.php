@@ -11,20 +11,20 @@
                     <span class="title">@lang('global.app_dashboard')</span>
                 </a>
             </li>
-            <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
+            <li class="{{ $request->segment(1) == 'timekeeping' ? 'active' : '' }}">
                 <a href="{{ route('admin.timekeeping.index') }}">
                     <i class="fa fa-clock-o"></i>
                     <span class="title">@lang('global.times.title')</span>
                 </a>
             </li>
-            <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
+
+            @can('users_manage')
+            <li class="{{ $request->segment(1) == 'reports' ? 'active' : '' }}">
                 <a href="{{ url('admin/reports') }}">
                     <i class="fa fa-folder-open"></i>
                     <span class="title">@lang('global.app_reports')</span>
                 </a>
-            </li>
-
-            @can('users_manage')
+            </li>            
              <li class="{{ $request->segment(1) == 'tasks' ? 'active' : '' }}">
                 <a href="{{ url('admin/tasks') }}">
                     <i class="fa fa-tasks"></i>

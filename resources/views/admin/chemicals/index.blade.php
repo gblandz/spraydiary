@@ -13,7 +13,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="compact table table-bordered table-striped {{ count($chemicals) > 0 ? 'datatable' : '' }} dt-select">
+            <table id="chemicals" class="compact table table-bordered table-striped {{ count($chemicals) > 0 ? 'datatable' : '' }} dt-select">
                 <thead>
                     <tr>
                         <th style="text-align:center;"><input type="checkbox" id="select-all" /></th>
@@ -61,6 +61,14 @@
             </table>
         </div>
     </div>
+
+<script type="text/javascript">
+    $('#chemicals').dataTable( {
+    "pageLength": 10
+    } );
+</script>
 @stop
+
+
 
 
